@@ -53,7 +53,7 @@ if(isset($_POST['iniciarsesion'])) {
 
 
 
-    header('Location: index.php');
+    header('Location: principal.php');
     
 
 
