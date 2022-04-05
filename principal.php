@@ -7,8 +7,9 @@
 	}
 	
 	$nombre = $_SESSION['nombre'];
-	$tipo_usuario = $_SESSION['tipo_usuario'];
-	
+
+    include("conexionBD/conexion.php");
+    $reportes="SELECT * FROM Problemas";
 	
 ?>
 
@@ -49,23 +50,17 @@
                                 Correo</a
 							>
 							
-							<?php if($tipo_usuario == 1) { ?>
-								
-							
-												
-										</div>
-							
-							<?php } ?>
+						
 							
 							<div class="sb-sidenav-menu-heading"></div>
-							<a class="nav-link" href="#"
+							<a class="nav-link" href="departamentos.php"
 							><div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
 								Departamentos</a
-								><a class="nav-link" href="#">
+								><a class="nav-link" href="empleados.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
 									Empleados</a
 								>
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="centrosTrabajo.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
 									Centros de trabajo</a
 								>
@@ -125,13 +120,13 @@
                         <div class="row">
                             <div class="col-xl-6">
                                 <div class="card mb-4">
-                                    <div class="card-header"><i class="fas fa-chart-area mr-1"></i>Area Chart Example</div>
+                                    <div class="card-header"><i class="fas fa-chart-area mr-1"></i>Un grafico o contador proximamente</div>
                                     <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
 								</div>
 							</div>
                             <div class="col-xl-6">
                                 <div class="card mb-4">
-                                    <div class="card-header"><i class="fas fa-chart-bar mr-1"></i>Bar Chart Example</div>
+                                    <div class="card-header"><i class="fas fa-chart-bar mr-1"></i>Un grafico o contador proximamente</div>
                                     <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
 								</div>
 							</div>
@@ -142,6 +137,8 @@
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
+
+                                        
                                             <tr>
                                                 <th>Folio</th>
                                                 <th>Fecha</th>
@@ -166,136 +163,26 @@
 											</tr>
 										</tfoot>
                                         <tbody>
-                                            <tr>
-                                                <td>01</td>
-                                                <td>29/03/2022</td>
-                                                <td>Solucionado</td>
-                                                <td>Juan Perez</td>
-                                                <td>Producción</td>
-                                                <td>No se</td>
-                                                <td>Falta de limpieza</td>
-                                                <td>Ya está trabajando correctamente de limpieza</td>
-											</tr>
-                                            <tr>
-                                            <td>01</td>
-                                                <td>29/03/2022</td>
-                                                <td>Solucionado</td>
-                                                <td>Juan Perez</td>
-                                                <td>Producción</td>
-                                                <td>No se</td>
-                                                <td>Falta de limpieza</td>
-                                                <td>Ya está trabajando correctamente de limpieza</td>
-											</tr>
-                                            <tr>
-                                                <td>01</td>
-                                                <td>29/03/2022</td>
-                                                <td>Solucionado</td>
-                                                <td>Juan Perez</td>
-                                                <td>Producción</td>
-                                                <td>No se</td>
-                                                <td>Falta de limpieza</td>
-                                                <td>Ya está trabajando correctamente de limpieza</td>
-											</tr>
-                                            <tr>
-                                                <td>01</td>
-                                                <td>29/03/2022</td>
-                                                <td>Solucionado</td>
-                                                <td>Juan Perez</td>
-                                                <td>Producción</td>
-                                                <td>No se</td>
-                                                <td>Falta de limpieza</td>
-                                                <td>Ya está trabajando correctamente de limpieza</td>
-											</tr>
-                                            <tr>
-                                                <td>01</td>
-                                                <td>29/03/2022</td>
-                                                <td>Solucionado</td>
-                                                <td>Juan Perez</td>
-                                                <td>Producción</td>
-                                                <td>No se</td>
-                                                <td>Falta de limpieza</td>
-                                                <td>Ya está trabajando correctamente de limpieza</td>
-											</tr>
-                                            <tr>
-                                            <td>01</td>
-                                                <td>29/03/2022</td>
-                                                <td>Solucionado</td>
-                                                <td>Juan Perez</td>
-                                                <td>Producción</td>
-                                                <td>No se</td>
-                                                <td>Falta de limpieza</td>
-                                                <td>Ya está trabajando correctamente de limpieza</td>
-											</tr>
-                                            <tr>
-                                            <td>01</td>
-                                                <td>29/03/2022</td>
-                                                <td>Solucionado</td>
-                                                <td>Juan Perez</td>
-                                                <td>Producción</td>
-                                                <td>No se</td>
-                                                <td>Falta de limpieza</td>
-                                                <td>Ya está trabajando correctamente de limpieza</td>
-											</tr>
-                                            <tr>
-                                            <td>01</td>
-                                                <td>29/03/2022</td>
-                                                <td>Solucionado</td>
-                                                <td>Juan Perez</td>
-                                                <td>Producción</td>
-                                                <td>No se</td>
-                                                <td>Falta de limpieza</td>
-                                                <td>Ya está trabajando correctamente de limpieza</td>
-											</tr>
-                                            <tr>
-                                            <td>01</td>
-                                                <td>29/03/2022</td>
-                                                <td>Solucionado</td>
-                                                <td>Juan Perez</td>
-                                                <td>Producción</td>
-                                                <td>No se</td>
-                                                <td>Falta de limpieza</td>
-                                                <td>Ya está trabajando correctamente de limpieza</td>
-											</tr>
-                                            <tr>
-                                            <td>01</td>
-                                                <td>29/03/2022</td>
-                                                <td>Solucionado</td>
-                                                <td>Juan Perez</td>
-                                                <td>Producción</td>
-                                                <td>No se</td>
-                                                <td>Falta de limpieza</td>
-                                                <td>Ya está trabajando correctamente de limpieza</td>
-											</tr>
-                                            <tr>
-                                            <td>01</td>
-                                                <td>29/03/2022</td>
-                                                <td>Solucionado</td>
-                                                <td>Juan Perez</td>
-                                                <td>Producción</td>
-                                                <td>No se</td>
-                                                <td>Falta de limpieza</td>
-                                                <td>Ya está trabajando correctamente de limpieza</td>
-											</tr>
-                                            <tr>
-                                            <td>01</td>
-                                                <td>29/03/2022</td>
-                                                <td>Solucionado</td>
-                                                <td>Juan Perez</td>
-                                                <td>Producción</td>
-                                                <td>No se</td>
-                                                <td>Falta de limpieza</td>
-                                                <td>Ya está trabajando correctamente de limpieza</td>
-											</tr>
-                                            <tr>
-                                            <td>01</td>
-                                                <td>29/03/2022</td>
-                                                <td>Solucionado</td>
-                                                <td>Juan Perez</td>
-                                                <td>Producción</td>
-                                                <td>No se</td>
-                                                <td>Falta de limpieza</td>
-                                                <td>Ya está trabajando correctamente de limpieza</td>
-											</tr>
+
+                                        <?php $resultado = mysqli_query($connLocalhost, $reportes);
+                                            while($row=mysqli_fetch_assoc($resultado)){?>
+
+                                    
+                                                <tr>
+                                                <td><?php echo $row['clave'];?></td>
+                                                <td><?php echo $row['clave'];?></td>
+                                                <td><?php echo $row['fecha'];?></td>
+                                                <td><?php echo $row['estado'];?></td>
+                                                <td><?php echo $row['nombre'];?></td>
+                                                <td><?php echo $row['detalles'];?></td>
+                                                <td><?php echo $row['estado'];?></td>
+                                                <td><?php echo $row['estado'];?></td>
+                                                </tr>
+                                           
+                                            <?php }?>
+
+
+                                            
                                            
                                         
                                           
