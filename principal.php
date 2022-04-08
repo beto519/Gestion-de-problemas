@@ -1,13 +1,12 @@
 <?php
-	
+//Retomamos la sesión
 	session_start();
-	
+	//Comprobamos que la sesión ya ha sido realizada, si no lo llevara al login
 	if(!isset($_SESSION['id'])){
 		header("Location: login.php");
 	}
-	
 	$nombre = $_SESSION['nombre'];
-
+//Se incluye la conexión a la base de datos y se realiza una sentencia sql
     include("conexionBD/conexion.php");
     $reportes="SELECT * FROM Problemas";
 	
@@ -120,14 +119,12 @@
                         <div class="row">
                             <div class="col-xl-6">
                                 <div class="card mb-4">
-                                    <div class="card-header"><i class="fas fa-chart-area mr-1"></i>Un grafico o contador proximamente</div>
-                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+                                   
 								</div>
 							</div>
                             <div class="col-xl-6">
                                 <div class="card mb-4">
-                                    <div class="card-header"><i class="fas fa-chart-bar mr-1"></i>Un grafico o contador proximamente</div>
-                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                                   
 								</div>
 							</div>
 						</div>
@@ -140,43 +137,50 @@
 
                                         
                                             <tr>
-                                                <th>Folio</th>
-                                                <th>Fecha</th>
+                                            <th>Clave</th>
+                                            <th>Fecha</th>
+                                                
+                                                <th>Descripcion</th>
+                                                <th>Detalles</th>
                                                 <th>Estado</th>
-                                                <th>Empleado</th>
                                                 <th>Departamento</th>
                                                 <th>Centro de trabajo</th>
-                                                <th>Problema</th>
-                                                <th>Observaciones</th>
+                                                <th>Empleado</th>
+                                                <th>Prioridad</th>
 											</tr>
 										</thead>
                                         <tfoot>
                                             <tr>
                                             <th>Folio</th>
                                                 <th>Fecha</th>
+                                               
+                                                <th>Descripcion</th>
+                                                <th>Detalles</th>
                                                 <th>Estado</th>
-                                                <th>Empleado</th>
                                                 <th>Departamento</th>
                                                 <th>Centro de trabajo</th>
-                                                <th>Problema</th>
-                                                <th>Observaciones</th>
+                                                <th>Empleado</th>
+                                                <th>Prioridad</th>
 											</tr>
 										</tfoot>
                                         <tbody>
-
+<!--Se realiza la consulta con la sentencia anteriormente defenida en la linea 11, dicha consulta solicita los datos de reportes-->
                                         <?php $resultado = mysqli_query($connLocalhost, $reportes);
                                             while($row=mysqli_fetch_assoc($resultado)){?>
 
                                     
                                                 <tr>
                                                 <td><?php echo $row['clave'];?></td>
-                                                <td><?php echo $row['clave'];?></td>
+                                              
                                                 <td><?php echo $row['fecha'];?></td>
-                                                <td><?php echo $row['estado'];?></td>
+                                            
                                                 <td><?php echo $row['nombre'];?></td>
                                                 <td><?php echo $row['detalles'];?></td>
                                                 <td><?php echo $row['estado'];?></td>
-                                                <td><?php echo $row['estado'];?></td>
+                                                <td><?php echo $row['idDepartamento'];?></td>
+                                                <td><?php echo $row['idCentroTrabajo'];?></td>
+                                                <td><?php echo $row['idEmpleado'];?></td>
+                                                <td><?php echo $row['Prioridad'];?></td>
                                                 </tr>
                                            
                                             <?php }?>
