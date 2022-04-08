@@ -16,32 +16,35 @@ include("conexionBD/conexion.php");
 $departamentos="SELECT * FROM Departamentos";
 
 // Lo primero que haremos será validar si el formulario ha sido enviado
-if (isset($_POST['registrar_send'])) {
+if (isset($_POST['editar_send'])) {
   $pass = $_POST['contraseña'];
   // Procedemos a añadir a la base de datos al usuario SOLO SI NO HAY ERRORES
   if (!isset($error)) {
     $idDepartamentos = (int)$_POST['departamento'];
     $pass_cifrada = password_hash($pass, PASSWORD_DEFAULT);
     // Preparamos la consulta para guardar el registro en la BD
-    $queryInsertUser = sprintf(
-      "INSERT INTO empleados (numeroEmpleado,nombre,correo,usuario,contraseña,idDepartamentos,estado,rol) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
-      mysqli_real_escape_string($connLocalhost, trim($_POST['numeroEmpleado'])),
-      mysqli_real_escape_string($connLocalhost, trim($_POST['nombre'])),
-      mysqli_real_escape_string($connLocalhost, trim($_POST['correo'])),
-      mysqli_real_escape_string($connLocalhost, trim($_POST['usuario'])),
-      mysqli_real_escape_string($connLocalhost, trim($pass_cifrada)),
-      mysqli_real_escape_string($connLocalhost, trim($idDepartamentos)),
-      mysqli_real_escape_string($connLocalhost, trim('Activo')),
-      mysqli_real_escape_string($connLocalhost, trim($_POST['tipoUsuario']))
+    $queryUpdateUser = sprintf("UPDATE empleados SET numeroEmpleado='%s', nombre='%s', correo='%s', usuario='%s', contraseña='%s', idDepartamentos='%s', estado='%s', rol='%s' WHERE idempleados =%d",
+    mysqli_real_escape_string($connLocalhost, trim($_POST['numeroEmpleado'])),
+    mysqli_real_escape_string($connLocalhost, trim($_POST['nombre'])),
+    mysqli_real_escape_string($connLocalhost, trim($_POST['correo'])),
+    mysqli_real_escape_string($connLocalhost, trim($_POST['usuario'])),
+    mysqli_real_escape_string($connLocalhost, trim($_POST['contraseña'])),
+    mysqli_real_escape_string($connLocalhost, trim($_POST['idDepartamentos'])),
+    mysqli_real_escape_string($connLocalhost, trim($_POST['estado'])),
+    mysqli_real_escape_string($connLocalhost, trim($_POST['rol'])),
+    mysqli_real_escape_string($connLocalhost, $userData['idempleados']));
+  
 
-    );
+   
+
+
 
     // Ejecutamos el query en la BD
-    mysqli_query($connLocalhost, $queryInsertUser) or trigger_error("El query de inserción de usuarios falló");
+    mysqli_query($connLocalhost, $queryUpdateUser) or trigger_error("El query de inserción de usuarios falló");
 
     // Redireccionamos al usuario al Panel de Control
 
-    header("Location:index.php?insertUser=true");
+    header("Location:editarEmpleados.php");
   }
 } else {
 }
@@ -118,7 +121,7 @@ if (isset($_POST['registrar_send'])) {
           
         </div>
         <div class="button">
-          <input type="submit" name="registrar_send" value="Registrar" />
+          <input type="submit" name="editar_send" value="Editar" />
         </div>
         <div class="link_login">
          
@@ -128,3 +131,7 @@ if (isset($_POST['registrar_send'])) {
 </body>
 
 </html>
+
+
+
+

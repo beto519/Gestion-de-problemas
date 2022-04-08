@@ -54,7 +54,7 @@ form .input-box span.details{
   font-weight: 500;
   margin-bottom: 5px;
 }
-.user-details .input-box input{
+.user-details .input-box input {
   height: 45px;
   width: 210%;
   outline: none;
@@ -69,6 +69,19 @@ form .input-box span.details{
 .user-details .input-box input:valid{
   border-color: #03A9F4;
 }
+.caja-departamento{
+  height: 45px;
+  width: 210%;
+  outline: none;
+  font-size: 16px;
+  border-radius: 5px;
+  padding-left: 15px;
+  border: 1px solid #03A9F4;
+  border-bottom-width: 2px;
+  transition: all 0.3s ease;
+  
+}
+
 
  form .button{
    height: 45px;
