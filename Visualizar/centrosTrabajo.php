@@ -1,9 +1,9 @@
 <?php
 session_start();
-require 'conexionBD/conexion.php';
+require './../conexionBD/conexion.php';
 
 if (!isset($_SESSION['id'])) {
-	header("Location: index.php");
+	header("Location: ./../login.php");
 }
 
 $id = $_SESSION['id'];
@@ -26,8 +26,8 @@ $sql = "SELECT * FROM CentrosTrabajo";
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	<meta name="description" content="" />
 	<meta name="author" content="" />
-	<title>Tables - SB Admin</title>
-	<link href="css/styles.css" rel="stylesheet" />
+	<title>Centros de Trabajo</title>
+	<link href="./../css/styles1.css" rel="stylesheet" />
 	<link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
 </head>
@@ -41,7 +41,7 @@ $sql = "SELECT * FROM CentrosTrabajo";
 				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
 					<a class="dropdown-item" href="#">Configuración</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="includes/cerrarSesion.php">Salir</a>
+					<a class="dropdown-item" href="./../includes/cerrarSesion.php">Salir</a>
 				</div>
 			</li>
 		</ul>
@@ -56,6 +56,10 @@ $sql = "SELECT * FROM CentrosTrabajo";
 							Correo
 						</a>
 
+						<a class="nav-link" href="./../Agregar/centroTrabajo.php">
+							<div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+							Agregar
+						</a>
 
 						<div class="sb-sidenav-menu-heading"></div>
 						<a class="nav-link" href="departamentos.php">
@@ -65,10 +69,7 @@ $sql = "SELECT * FROM CentrosTrabajo";
 							<div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
 							Empleados
 						</a>
-						<a class="nav-link" href="centrosTrabajo.php">
-							<div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-							Centros de trabajo
-						</a>
+					
 
 
 					</div>
@@ -78,7 +79,7 @@ $sql = "SELECT * FROM CentrosTrabajo";
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid">
-					<h1 class="mt-4">Tables</h1>
+					<h1 class="mt-4">Lista centros de Trabajo</h1>
 					<ol class="breadcrumb mb-4">
 						<li class="breadcrumb-item"><a href="principal.php">Principal</a></li>
 						<li class="breadcrumb-item active"><a href="empleados.php">Empleados</a></li>
@@ -87,7 +88,7 @@ $sql = "SELECT * FROM CentrosTrabajo";
 						<div class="card-body"></div>
 					</div>
 					<div class="card mb-4">
-						<div class="card-header"><i class="fas fa-table mr-1"></i>Lista de empleados.</div>
+						<div class="card-header"><i class="fas fa-table mr-1"></i>Lista de centros de trabajo.</div>
 						<div class="card-body">
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -95,6 +96,8 @@ $sql = "SELECT * FROM CentrosTrabajo";
 										<tr>
 											<th>Clave</th>
 											<th>Nombre</th>
+											<th>Editar</th>
+											<th>Eliminar</th>
 
 										</tr>
 									</thead>
@@ -102,6 +105,8 @@ $sql = "SELECT * FROM CentrosTrabajo";
 										<tr>
 											<th>Clave</th>
 											<th>Nombre</th>
+											<th>Editar</th>
+											<th>Eliminar</th>
 										</tr>
 									</tfoot>
 									<tbody>
@@ -110,7 +115,9 @@ $sql = "SELECT * FROM CentrosTrabajo";
 										while ($row = mysqli_fetch_assoc($resultado)) { ?>
 											<tr>
 												<td><?php echo $row['clave']; ?></td>
-												<td><?php echo $row['nombre']; ?></td>
+												<td><?php echo $row['nombreC']; ?></td>
+												<td><a href="./../Editar/centroTrabajo.php?clave=<?php echo $row['clave']; ?>">Editar</a></td>
+												<td class="eliminar"id = "eliminar"><a href="./../Eliminar/CentrosTrabajo.php?clave=<?php echo $row['clave']; ?>">Eliminar</a></td>
 
 											</tr>
 										<?php } ?>
@@ -136,10 +143,10 @@ $sql = "SELECT * FROM CentrosTrabajo";
 	</div>
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-	<script src="js/scripts.js"></script>
+	<script src="./../js/scripts.js"></script>
 	<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
 	<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
-	<script src="demo/datatables-demo.js"></script>
+	<script src="./../demo/datatables-demo.js"></script>
 </body>
 
 </html>

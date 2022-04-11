@@ -5,7 +5,7 @@
 if (!isset($_SESSION)) {
   session_start();
   // Protegemos el documento para que solamente sea visible cuando NO HAS INICIADO sesión
-  if (isset($_SESSION['id'])) header('Location: index.php');
+  if (isset($_SESSION['id'])) header('Location: Visualizar/principal.php');
 }
 
 // Incluimos la conexión a la base de datos
@@ -52,7 +52,7 @@ if (isset($_POST['iniciarsesion'])) {
     $_SESSION['estado'] = $userData['estado'];
     $_SESSION['rol'] = $userData['rol'];
 
-    header('Location: principal.php');
+    header('Location: Visualizar/principal.php');
   } else {
     $error = "Login failed";
   }

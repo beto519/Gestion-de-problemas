@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'conexionBD/conexion.php';
+require './../conexionBD/conexion.php';
 
 if (!isset($_SESSION['id'])) {
 	header("Location: index.php");
@@ -12,7 +12,7 @@ $nombre = $_SESSION['nombre'];
 
 
 $sql = "SELECT * From empleados
-Inner join Departamentos on Departamentos.idDepartamentos = empleados.idDepartamentos";
+Inner join Departamentos on Departamentos.clave = empleados.idDepartamentos";
 
 
 
@@ -27,8 +27,8 @@ Inner join Departamentos on Departamentos.idDepartamentos = empleados.idDepartam
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	<meta name="description" content="" />
 	<meta name="author" content="" />
-	<title>Tables - SB Admin</title>
-	<link href="css/styles.css" rel="stylesheet" />
+	<title>Empleados</title>
+	<link href="./../css/styles1.css" rel="stylesheet" />
 	<link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
 </head>
@@ -42,7 +42,7 @@ Inner join Departamentos on Departamentos.idDepartamentos = empleados.idDepartam
 				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
 					<a class="dropdown-item" href="#">Configuración</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="includes/cerrarSesion.php">Salir</a>
+					<a class="dropdown-item" href="./../includes/cerrarSesion.php">Salir</a>
 				</div>
 			</li>
 		</ul>
@@ -52,24 +52,18 @@ Inner join Departamentos on Departamentos.idDepartamentos = empleados.idDepartam
 			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
 				<div class="sb-sidenav-menu">
 					<div class="nav">
-						<a class="nav-link" href="#">
-							<div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-							
-						</a>
-
-
-
+					
 						<div class="sb-sidenav-menu-heading"></div>
-						<a class="nav-link" href="Registrar.php">
+						<a class="nav-link" href="./../Agregar/Empleado.php">
 							<div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
 							Registrar
-						</a><a class="nav-link" href="editarEmpleados.php">
+						</a><a class="nav-link" href="Departamentos.php">
 							<div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-							Editar
+							Departamentos
 						</a>
 						<a class="nav-link" href="centrosTrabajo.php">
 							<div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-							Eliminar
+							Centros de trabajo
 						</a>
 
 
@@ -80,7 +74,7 @@ Inner join Departamentos on Departamentos.idDepartamentos = empleados.idDepartam
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid">
-					<h1 class="mt-4">Tables</h1>
+					<h1 class="mt-4">Lista de empleados</h1>
 					<ol class="breadcrumb mb-4">
 						<li class="breadcrumb-item"><a href="principal.php">Principal</a></li>
 						<li class="breadcrumb-item active"><a href="empleados.php">Empleados</a></li>
@@ -102,7 +96,8 @@ Inner join Departamentos on Departamentos.idDepartamentos = empleados.idDepartam
 											<th>Usuario</th>
 											<th>Estado</th>
 											<th>Rol</th>
-											<th>Opciones</th>
+											<th>Editar</th>
+											<th>Eliminar</th>
 										</tr>
 									</thead>
 									<tfoot>
@@ -114,7 +109,8 @@ Inner join Departamentos on Departamentos.idDepartamentos = empleados.idDepartam
 											<th>Usuario</th>
 											<th>Estado</th>
 											<th>Rol</th>
-											<th>Opciones</th>
+											<th>Editar</th>
+											<th>Eliminar</th>
 										</tr>
 									</tfoot>
 									<tbody>
@@ -123,13 +119,14 @@ Inner join Departamentos on Departamentos.idDepartamentos = empleados.idDepartam
 										while ($row = mysqli_fetch_assoc($resultado)) { ?>
 											<tr>
 												<td><?php echo $row['numeroEmpleado']; ?></td>
-												<td><?php echo $row['nombre']; ?></td>
+												<td><?php echo $row['nombreE']; ?></td>
 												<td><?php echo $row['correo']; ?></td>
 												<td><?php echo $row['nombreD']; ?></td>
 												<td><?php echo $row['usuario']; ?></td>
 												<td><?php echo $row['estado']; ?></td>
 												<td><?php echo $row['rol']; ?></td>
-												<td><a href="editarEmpleados.php">Editar</a>&nbsp;<a href="eliminarEmpleados.php">Eliminar</a></td>
+												<td><a href="./../Editar/Empleados.php?codigoEmpleado=<?php echo $row['numeroEmpleado']; ?>">Editar</a></td>
+												<td class="eliminar"id = "eliminar"><a href="./../Eliminar/Empleados.php?codigoEmpleado=<?php echo $row['numeroEmpleado']; ?>">Eliminar</a></td>
 											</tr>
 										<?php } ?>
 									</tbody>
@@ -154,10 +151,10 @@ Inner join Departamentos on Departamentos.idDepartamentos = empleados.idDepartam
 	</div>
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-	<script src="js/scripts.js"></script>
+	<script src="./../js/scripts.js"></script>
 	<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
 	<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
-	<script src="demo/datatables-demo.js"></script>
+	<script src="./../demo/datatables-demo.js"></script>
 </body>
 
 </html>

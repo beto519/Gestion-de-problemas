@@ -1,9 +1,9 @@
 <?php
 session_start();
-require 'conexionBD/conexion.php';
+require './../conexionBD/conexion.php';
 
 if (!isset($_SESSION['id'])) {
-	header("Location: index.php");
+	header("Location: ./../login.php");
 }
 
 $id = $_SESSION['id'];
@@ -26,8 +26,8 @@ $sql = "SELECT * FROM Departamentos";
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	<meta name="description" content="" />
 	<meta name="author" content="" />
-	<title>Tables - SB Admin</title>
-	<link href="css/styles.css" rel="stylesheet" />
+	<title>Departamentos</title>
+	<link href="./../css/styles.css" rel="stylesheet" />
 	<link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
 </head>
@@ -41,7 +41,7 @@ $sql = "SELECT * FROM Departamentos";
 				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
 					<a class="dropdown-item" href="#">Configuración</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="includes/cerrarSesion.php">Salir</a>
+					<a class="dropdown-item" href="./../includes/cerrarSesion.php">Salir</a>
 				</div>
 			</li>
 		</ul>
@@ -79,16 +79,16 @@ $sql = "SELECT * FROM Departamentos";
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid">
-					<h1 class="mt-4">Tables</h1>
+					<h1 class="mt-4">Departamentos</h1>
 					<ol class="breadcrumb mb-4">
 						<li class="breadcrumb-item"><a href="principal.php">Principal</a></li>
-						<li class="breadcrumb-item active"><a href="empleados.php">Empleados</a></li>
+						<li class="breadcrumb-item active"><a href="Departamentos.php">Lista de departamentos</a></li>
 					</ol>
 					<div class="card mb-4">
 						<div class="card-body"></div>
 					</div>
 					<div class="card mb-4">
-						<div class="card-header"><i class="fas fa-table mr-1"></i>Lista de empleados.</div>
+						<div class="card-header"><i class="fas fa-table mr-1"></i>Lista de departamentos.</div>
 						<div class="card-body">
 							<div class="table-responsive">
 								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -137,10 +137,10 @@ $sql = "SELECT * FROM Departamentos";
 	</div>
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-	<script src="js/scripts.js"></script>
+	<script src="./../js/scripts.js"></script>
 	<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
 	<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
-	<script src="demo/datatables-demo.js"></script>
+	<script src="./../demo/datatables-demo.js"></script>
 </body>
 
 </html>

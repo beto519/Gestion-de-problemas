@@ -3,13 +3,18 @@
 	session_start();
 	//Comprobamos que la sesión ya ha sido realizada, si no lo llevara al login
 	if(!isset($_SESSION['id'])){
-		header("Location: login.php");
+		header("Location: ./../login.php");
 	}
 	$nombre = $_SESSION['nombre'];
 //Se incluye la conexión a la base de datos y se realiza una sentencia sql
-    include("conexionBD/conexion.php");
+    include("./../conexionBD/conexion.php");
     $reportes="SELECT * FROM Problemas";
-	
+	$sql = "SELECT * From Problemas
+Inner join Departamentos on Departamentos.clave = Problemas.idDepartamento
+Inner join empleados on empleados.numeroEmpleado = Problemas.idEmpleado
+Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
+
+";
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +26,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Pagina Principal</title>
-        <link href="css/styles.css" rel="stylesheet" />
+        <link href="./../css/styles.css" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
 	</head>
@@ -34,7 +39,7 @@
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                         <a class="dropdown-item" href="#">Configuración</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="includes/cerrarSesion.php">Salir</a>
+                        <a class="dropdown-item" href="./../includes/cerrarSesion.php">Salir</a>
 					</div>
 				</li>
 			</ul>
@@ -74,9 +79,9 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Problemas</h1>
+                        <h1 class="mt-4">Inicio</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Problemas</li>
+                            <li class="breadcrumb-item active">Pagina principal</li>
 						</ol>
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
@@ -153,7 +158,7 @@
                                             <tr>
                                             <th>Folio</th>
                                                 <th>Fecha</th>
-                                               
+                                           
                                                 <th>Descripcion</th>
                                                 <th>Detalles</th>
                                                 <th>Estado</th>
@@ -165,11 +170,12 @@
 										</tfoot>
                                         <tbody>
 <!--Se realiza la consulta con la sentencia anteriormente defenida en la linea 11, dicha consulta solicita los datos de reportes-->
-                                        <?php $resultado = mysqli_query($connLocalhost, $reportes);
+                                        <?php $resultado = mysqli_query($connLocalhost, $sql);
                                             while($row=mysqli_fetch_assoc($resultado)){?>
 
                                     
                                                 <tr>
+                                                    <!---->
                                                 <td><?php echo $row['clave'];?></td>
                                               
                                                 <td><?php echo $row['fecha'];?></td>
@@ -177,9 +183,9 @@
                                                 <td><?php echo $row['nombre'];?></td>
                                                 <td><?php echo $row['detalles'];?></td>
                                                 <td><?php echo $row['estado'];?></td>
-                                                <td><?php echo $row['idDepartamento'];?></td>
-                                                <td><?php echo $row['idCentroTrabajo'];?></td>
-                                                <td><?php echo $row['idEmpleado'];?></td>
+                                                <td><?php echo $row['nombreD'];?></td>
+                                                <td><?php echo $row['nombreC'];?></td>
+                                                <td><?php echo $row['nombreE'];?></td>
                                                 <td><?php echo $row['Prioridad'];?></td>
                                                 </tr>
                                            
@@ -208,12 +214,11 @@
 		</div>
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
+        <script src="./../js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="demo/chart-area-demo.js"></script>
-        <script src="demo/chart-bar-demo.js"></script>
+       
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
-        <script src="demo/datatables-demo.js"></script>
+        <script src="./../demo/datatables-demo.js"></script>
 	</body>
 </html>

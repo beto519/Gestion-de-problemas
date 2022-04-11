@@ -9,10 +9,10 @@ if (!isset($_SESSION)) {
 }
 if($_SESSION['rol']!="Admin"){
  //Poner una alerta de que no es posible si no es administrador
-  header("Location: principal.php"); 
+  header("Location: ./../Visualizar/principal.php"); 
 }
 // Incluimos la conexión a la base de datos
-include("conexionBD/conexion.php");
+include("./../conexionBD/conexion.php");
 $departamentos="SELECT * FROM Departamentos";
 
 // Lo primero que haremos será validar si el formulario ha sido enviado
@@ -20,17 +20,17 @@ if (isset($_POST['registrar_send'])) {
   $pass = $_POST['contraseña'];
   // Procedemos a añadir a la base de datos al usuario SOLO SI NO HAY ERRORES
   if (!isset($error)) {
-    $idDepartamentos = (int)$_POST['departamento'];
+
     $pass_cifrada = password_hash($pass, PASSWORD_DEFAULT);
     // Preparamos la consulta para guardar el registro en la BD
     $queryInsertUser = sprintf(
-      "INSERT INTO empleados (numeroEmpleado,nombre,correo,usuario,contraseña,idDepartamentos,estado,rol) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+      "INSERT INTO empleados (numeroEmpleado,nombreE,correo,usuario,contraseña,idDepartamentos,estado,rol) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
       mysqli_real_escape_string($connLocalhost, trim($_POST['numeroEmpleado'])),
-      mysqli_real_escape_string($connLocalhost, trim($_POST['nombre'])),
+      mysqli_real_escape_string($connLocalhost, trim($_POST['nombreE'])),
       mysqli_real_escape_string($connLocalhost, trim($_POST['correo'])),
       mysqli_real_escape_string($connLocalhost, trim($_POST['usuario'])),
       mysqli_real_escape_string($connLocalhost, trim($pass_cifrada)),
-      mysqli_real_escape_string($connLocalhost, trim($idDepartamentos)),
+      mysqli_real_escape_string($connLocalhost, trim($_POST['departamento'])),
       mysqli_real_escape_string($connLocalhost, trim('Activo')),
       mysqli_real_escape_string($connLocalhost, trim($_POST['tipoUsuario']))
 
@@ -41,7 +41,7 @@ if (isset($_POST['registrar_send'])) {
 
     // Redireccionamos al usuario al Panel de Control
 
-    header("Location:index.php?insertUser=true");
+    header("Location: ./../Visualizar/empleados.php"); 
   }
 } else {
 }
@@ -55,12 +55,12 @@ if (isset($_POST['registrar_send'])) {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="css/registrar1.css" rel="stylesheet" type="text/css" />
+  <link href="./../css/registrar1.css" rel="stylesheet" type="text/css" />
   <title>Registrar</title>
 </head>
 
 <body>
-  <form class="container_1" action="Registrar.php" method="post">
+  <form class="container_1" action="Empleado.php" method="post">
     <div class="title">Registrar</div>
     <div class="content">
       <form action="#">
@@ -71,7 +71,7 @@ if (isset($_POST['registrar_send'])) {
           </div>
           <div class="input-box">
             <span class="details">Nombre</span>
-            <input type="text" name="nombre" placeholder="Ingresa tu nombre" value="<?php if (isset($_POST['nombre'])) echo $_POST['nombre']; ?>" />
+            <input type="text" name="nombreE" placeholder="Ingresa tu nombre" value="<?php if (isset($_POST['nombreE'])) echo $_POST['nombreE']; ?>" />
           </div>
           <div class="input-box">
             <span class="details">Correo</span>
@@ -95,7 +95,7 @@ if (isset($_POST['registrar_send'])) {
         <?php
          $resultado = mysqli_query($connLocalhost, $departamentos);
          while($row=mysqli_fetch_assoc($resultado)){
-          echo '<option  value='.$row["idDepartamentos"].'>'.$row["nombreD"].'</option>';
+          echo '<option  value='.$row["clave"].'>'.$row["nombreD"].'</option>';
           
           #echo "<option value=\"{$row['idDepartamentos']}\">{$row['nombre']}</option>"; 
           }

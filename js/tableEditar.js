@@ -8,6 +8,6 @@ $(document).ready(function(){
           editable: [[1, 'nombre'], [2, 'autor'], [3, 'isbn'], [4, 'categoria']]
         },
         hideIdentifier: true,
-        url: 'editarEmpleados.php'      
+        url: 'Editar/Empleados.php'      
     });
 });
