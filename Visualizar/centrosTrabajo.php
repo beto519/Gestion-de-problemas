@@ -69,7 +69,7 @@ $sql = "SELECT * FROM CentrosTrabajo";
 							<div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
 							Empleados
 						</a>
-					
+
 
 
 					</div>
@@ -117,7 +117,7 @@ $sql = "SELECT * FROM CentrosTrabajo";
 												<td><?php echo $row['clave']; ?></td>
 												<td><?php echo $row['nombreC']; ?></td>
 												<td><a href="./../Editar/centroTrabajo.php?clave=<?php echo $row['clave']; ?>">Editar</a></td>
-												<td class="eliminar"id = "eliminar"><a href="./../Eliminar/CentrosTrabajo.php?clave=<?php echo $row['clave']; ?>">Eliminar</a></td>
+												<td class="eliminar" id="eliminar"><a href="./../Eliminar/CentrosTrabajo.php?clave=<?php echo $row['clave']; ?>">Eliminar</a></td>
 
 											</tr>
 										<?php } ?>

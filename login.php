@@ -26,7 +26,7 @@ if (isset($_POST['iniciarsesion'])) {
 
   // Armamos el query para verificar el email y el password en la base de datos
   $queryLogin = sprintf(
-    "SELECT idempleados, numeroEmpleado, nombre,correo,usuario, contraseña,idDepartamentos,estado,rol FROM empleados WHERE numeroEmpleado = '%s' AND contraseña = '%s'",
+    "SELECT idempleados, numeroEmpleado, nombreE,correo,usuario, contraseña,idDepartamentos,estado,rol FROM empleados WHERE numeroEmpleado = '%s' AND contraseña = '%s'",
     mysqli_real_escape_string($connLocalhost, trim($_POST['numeroEmpleado'])),
     mysqli_real_escape_string($connLocalhost, trim($_POST['contraseña']))
   );

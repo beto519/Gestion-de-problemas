@@ -27,7 +27,7 @@ $sql = "SELECT * FROM Departamentos";
 	<meta name="description" content="" />
 	<meta name="author" content="" />
 	<title>Departamentos</title>
-	<link href="./../css/styles.css" rel="stylesheet" />
+	<link href="./../css/styles1.css" rel="stylesheet" />
 	<link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
 </head>
@@ -96,6 +96,8 @@ $sql = "SELECT * FROM Departamentos";
 										<tr>
 											<th>Clave</th>
 											<th>Nombre</th>
+											<th>Editar</th>
+											<th>Eliminar</th>
 
 										</tr>
 									</thead>
@@ -103,6 +105,8 @@ $sql = "SELECT * FROM Departamentos";
 										<tr>
 											<th>Clave</th>
 											<th>Nombre</th>
+											<th>Editar</th>
+											<th>Eliminar</th>
 										</tr>
 									</tfoot>
 									<tbody>
@@ -112,7 +116,8 @@ $sql = "SELECT * FROM Departamentos";
 											<tr>
 												<td><?php echo $row['clave']; ?></td>
 												<td><?php echo $row['nombreD']; ?></td>
-
+												<td><a href="./../Editar/Departamento.php?clave=<?php echo $row['clave']; ?>">Editar</a></td>
+												<td class="eliminar" id="eliminar"><a href="./../Eliminar/Departamento.php?clave=<?php echo $row['clave']; ?>">Eliminar</a></td>
 											</tr>
 										<?php } ?>
 									</tbody>

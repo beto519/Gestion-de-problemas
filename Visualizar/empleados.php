@@ -52,7 +52,7 @@ Inner join Departamentos on Departamentos.clave = empleados.idDepartamentos";
 			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
 				<div class="sb-sidenav-menu">
 					<div class="nav">
-					
+
 						<div class="sb-sidenav-menu-heading"></div>
 						<a class="nav-link" href="./../Agregar/Empleado.php">
 							<div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
@@ -126,7 +126,7 @@ Inner join Departamentos on Departamentos.clave = empleados.idDepartamentos";
 												<td><?php echo $row['estado']; ?></td>
 												<td><?php echo $row['rol']; ?></td>
 												<td><a href="./../Editar/Empleados.php?codigoEmpleado=<?php echo $row['numeroEmpleado']; ?>">Editar</a></td>
-												<td class="eliminar"id = "eliminar"><a href="./../Eliminar/Empleados.php?codigoEmpleado=<?php echo $row['numeroEmpleado']; ?>">Eliminar</a></td>
+												<td class="eliminar" id="eliminar"><a href="./../Eliminar/Empleados.php?codigoEmpleado=<?php echo $row['numeroEmpleado']; ?>">Eliminar</a></td>
 											</tr>
 										<?php } ?>
 									</tbody>
