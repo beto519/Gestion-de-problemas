@@ -31,7 +31,7 @@ if (isset($_POST['agregar_send'])) {
    
       // Preparamos la consulta para guardar el registro en la BD
       $queryInsertProblema = sprintf(
-        "INSERT INTO Problemas (claveProblemasclaveProblemas,nombre,fecha,detalles,estado,idDepartamento,idCentroTrabajo,idEmpleado,Prioridad) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+        "INSERT INTO Problemas (claveProblemas,nombre,fecha,detalles,estado,idDepartamento,idCentroTrabajo,idEmpleado,Prioridad) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
         mysqli_real_escape_string($connLocalhost, trim($_POST['claveProblemas'])),
         mysqli_real_escape_string($connLocalhost, trim($_POST['nombre'])),
         mysqli_real_escape_string($connLocalhost, trim($_POST['fecha'])),
@@ -135,6 +135,10 @@ include("enviar.php");
           <div class="input-box">
             <span class="details">Clave</span>
             <input type="text" name="claveProblemas" placeholder="" value="<?php if (isset($_POST['claveProblemas'])) echo $_POST['claveProblemas']; ?>" />
+          </div>
+          <div class="input-box">
+            <span class="details">Correo para</span>
+            <input type="text" name="correoDestinatario" placeholder="" value="<?php if (isset($_POST['correoDestinatario'])) echo $_POST['correoDestinatario']; ?>" />
           </div>
           <div class="input-box">
             <span class="details">Nombre del problema</span>

@@ -26,7 +26,7 @@ try {
 
     //Recipients
     $mail->setFrom($_SESSION['correo'],  $_SESSION['nombreE']);
-    $mail->addAddress('lopezbeto519@gmail.com','Trabajador: Beto');     //Add a recipient
+    $mail->addAddress($_POST['correoDestinatario']);     //Add a recipient
 
 
     //Attachments
