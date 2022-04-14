@@ -43,7 +43,7 @@ if (isset($_POST['iniciarsesion'])) {
     // Definimos variables de sesion en $_SESSION
     $_SESSION['id'] = $userData['idempleados'];
     $_SESSION['numeroEmpleado'] = $userData['numeroEmpleado'];
-    $_SESSION['nombre'] = $userData['nombre'];
+    $_SESSION['nombreE'] = $userData['nombreE'];
     $_SESSION['correo'] = $userData['correo'];
     $_SESSION['correo'] = $userData['correo'];
     $_SESSION['usuario'] = $userData['usuario'];

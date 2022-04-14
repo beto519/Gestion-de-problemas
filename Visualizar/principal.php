@@ -5,7 +5,7 @@ session_start();
 if (!isset($_SESSION['id'])) {
     header("Location: ./../login.php");
 }
-$nombre = $_SESSION['nombre'];
+$nombre = $_SESSION['nombreE'];
 //Se incluye la conexión a la base de datos y se realiza una sentencia sql
 include("./../conexionBD/conexion.php");
 $reportes = "SELECT * FROM Problemas";
@@ -27,7 +27,7 @@ Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Pagina Principal</title>
-    <link href="./../css/styles.css" rel="stylesheet" />
+    <link href="./../css/styles1.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
 </head>
@@ -178,7 +178,7 @@ Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
 
                                             <tr>
                                                 <!---->
-                                                <td><?php echo $row['clave']; ?></td>
+                                                <td><?php echo $row['claveProblemas']; ?></td>
 
                                                 <td><?php echo $row['fecha']; ?></td>
 

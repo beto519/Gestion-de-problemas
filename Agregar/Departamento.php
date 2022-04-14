@@ -31,9 +31,9 @@ if (isset($_POST['agregar_send'])) {
    
       // Preparamos la consulta para guardar el registro en la BD
       $queryInserCentro = sprintf(
-        "INSERT INTO CentrosTrabajo (clave,nombreC) VALUES ('%s', '%s')",
+        "INSERT INTO Departamentos (clave,nombreD) VALUES ('%s', '%s')",
         mysqli_real_escape_string($connLocalhost, trim($_POST['clave'])),
-        mysqli_real_escape_string($connLocalhost, trim($_POST['nombreC']))
+        mysqli_real_escape_string($connLocalhost, trim($_POST['nombreD']))
   
       );
   
@@ -115,8 +115,8 @@ if (isset($_POST['agregar_send'])) {
 					<h1 class="mt-4">Agregar centros de trabajo</h1>
 					<ol class="breadcrumb mb-4">
 						<li class="breadcrumb-item"><a href="./../Visualizar/principal.php">Principal</a></li>
-            <li class="breadcrumb-item"><a href="./../Visualizar/centrosTrabajo.php">Centros Trabajo</a></li>
-						<li class="breadcrumb-item active"><a href="">Agregar centro de trabajo</a></li>
+            <li class="breadcrumb-item"><a href="./../Visualizar/Departamentos.php">Departamentos</a></li>
+						<li class="breadcrumb-item active"><a href="">Agregar</a></li>
 					</ol>
 					
 				
@@ -130,7 +130,7 @@ if (isset($_POST['agregar_send'])) {
           </div>
           <div class="input-box">
             <span class="details">Nombre del centro de trabajo</span>
-            <input type="text" name="nombreC" placeholder="Ingresa el nombre del centro de trabajo" value="<?php if (isset($_POST['nombreC'])) echo $_POST['nombreC']; ?>" />
+            <input type="text" name="nombreD" placeholder="Ingresa el nombre del centro de trabajo" value="<?php if (isset($_POST['nombreD'])) echo $_POST['nombreD']; ?>" />
           </div>
         
           
