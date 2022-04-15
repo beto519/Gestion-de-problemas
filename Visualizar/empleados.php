@@ -8,7 +8,7 @@ if (!isset($_SESSION['id'])) {
 
 $id = $_SESSION['id'];
 
-$nombre = $_SESSION['nombre'];
+$nombre = $_SESSION['nombreE'];
 
 
 $sql = "SELECT * From empleados
@@ -52,7 +52,14 @@ Inner join Departamentos on Departamentos.clave = empleados.idDepartamentos";
 			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
 				<div class="sb-sidenav-menu">
 					<div class="nav">
-
+					<a class="nav-link" href="./../correo/correo.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Generar Problema
+                        </a>
+                        <a class="nav-link" href="./../correo/Solucion.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Generar Solución
+                        </a>
 						<div class="sb-sidenav-menu-heading"></div>
 						<a class="nav-link" href="./../Agregar/Empleado.php">
 							<div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>

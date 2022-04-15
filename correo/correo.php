@@ -15,7 +15,7 @@ include("./../conexionBD/conexion.php");
 $id = $_SESSION['id'];
 
 $nombre = $_SESSION['nombreE'];
-
+$nombreDepartamento;
 $departamentos="SELECT * FROM Departamentos";
 $centroTrabajo="SELECT * FROM CentrosTrabajo";
 $empleado="SELECT * FROM empleados where idEmpleados = $id";
@@ -31,12 +31,12 @@ if (isset($_POST['agregar_send'])) {
    
       // Preparamos la consulta para guardar el registro en la BD
       $queryInsertProblema = sprintf(
-        "INSERT INTO Problemas (claveProblemas,nombre,fecha,detalles,estado,idDepartamento,idCentroTrabajo,idEmpleado,Prioridad) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+        "INSERT INTO Problemas (claveProblemas,nombreP,fecha,detalles,estadoP,idDepartamento,idCentroTrabajo,idEmpleado,Prioridad) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
         mysqli_real_escape_string($connLocalhost, trim($_POST['claveProblemas'])),
-        mysqli_real_escape_string($connLocalhost, trim($_POST['nombre'])),
+        mysqli_real_escape_string($connLocalhost, trim($_POST['nombreP'])),
         mysqli_real_escape_string($connLocalhost, trim($_POST['fecha'])),
         mysqli_real_escape_string($connLocalhost, trim($_POST['detalles'])),
-        mysqli_real_escape_string($connLocalhost, trim($_POST['estado'])),
+        mysqli_real_escape_string($connLocalhost, trim($_POST['estadoP'])),
         mysqli_real_escape_string($connLocalhost, trim($_POST['departamento'])),
         mysqli_real_escape_string($connLocalhost, trim($_POST['centroTrabajo'])),
         mysqli_real_escape_string($connLocalhost, trim($_POST['empleado'])),
@@ -142,7 +142,7 @@ include("enviar.php");
           </div>
           <div class="input-box">
             <span class="details">Nombre del problema</span>
-            <input type="text" name="nombre" placeholder="" value="<?php if (isset($_POST['nombre'])) echo $_POST['nombre']; ?>" />
+            <input type="text" name="nombreP" placeholder="" value="<?php if (isset($_POST['nombreP'])) echo $_POST['nombreP']; ?>" />
           </div>
           <div class="input-box">
             <span class="details">Fecha</span>
@@ -154,7 +154,7 @@ include("enviar.php");
           </div>
           <div class="input-box">
             <span class="details">Estado</span>
-            <input type="text" name="estado" placeholder="" value="<?php if (isset($_POST['estado'])) echo $_POST['estado']; ?>" />
+            <input type="text" name="estadoP" placeholder="" value="<?php if (isset($_POST['estadoP'])) echo $_POST['estadoP']; ?>" />
           </div>
          
           <div class="input-box">
@@ -165,7 +165,7 @@ include("enviar.php");
          $resultado = mysqli_query($connLocalhost, $departamentos);
          while($row=mysqli_fetch_assoc($resultado)){
           echo '<option  value='.$row["clave"].'>'.$row["nombreD"].'</option>';
-          
+      
           #echo "<option value=\"{$row['idDepartamentos']}\">{$row['nombre']}</option>"; 
           }
                                          

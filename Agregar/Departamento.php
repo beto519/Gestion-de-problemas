@@ -30,7 +30,7 @@ if (isset($_POST['agregar_send'])) {
     if (!isset($error)) {
    
       // Preparamos la consulta para guardar el registro en la BD
-      $queryInserCentro = sprintf(
+      $queryInserDepartamento = sprintf(
         "INSERT INTO Departamentos (clave,nombreD) VALUES ('%s', '%s')",
         mysqli_real_escape_string($connLocalhost, trim($_POST['clave'])),
         mysqli_real_escape_string($connLocalhost, trim($_POST['nombreD']))
@@ -38,11 +38,11 @@ if (isset($_POST['agregar_send'])) {
       );
   
       // Ejecutamos el query en la BD
-      mysqli_query($connLocalhost, $queryInserCentro) or trigger_error("El query de inserción de usuarios falló");
+      mysqli_query($connLocalhost, $queryInserDepartamento) or trigger_error("El query de inserción de usuarios falló");
   
       // Redireccionamos al usuario al Panel de Control
   
-      header("Location: ./../Visualizar/centrosTrabajo.php"); 
+      header("Location: ./../Visualizar/Departamentos.php"); 
     }
   } else {
   }
@@ -112,7 +112,7 @@ if (isset($_POST['agregar_send'])) {
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid">
-					<h1 class="mt-4">Agregar centros de trabajo</h1>
+					<h1 class="mt-4">Agregar Departamentos</h1>
 					<ol class="breadcrumb mb-4">
 						<li class="breadcrumb-item"><a href="./../Visualizar/principal.php">Principal</a></li>
             <li class="breadcrumb-item"><a href="./../Visualizar/Departamentos.php">Departamentos</a></li>
@@ -121,7 +121,7 @@ if (isset($_POST['agregar_send'])) {
 					
 				
             
-            <form action="centroTrabajo.php" method='post'>
+            <form action="Departamento.php" method='post'>
 
         <div class="user-details">
           <div class="input-box">
@@ -130,7 +130,7 @@ if (isset($_POST['agregar_send'])) {
           </div>
           <div class="input-box">
             <span class="details">Nombre del centro de trabajo</span>
-            <input type="text" name="nombreD" placeholder="Ingresa el nombre del centro de trabajo" value="<?php if (isset($_POST['nombreD'])) echo $_POST['nombreD']; ?>" />
+            <input type="text" name="nombreD" placeholder="" value="<?php if (isset($_POST['nombreD'])) echo $_POST['nombreD']; ?>" />
           </div>
         
           

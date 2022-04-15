@@ -8,7 +8,7 @@ if (!isset($_SESSION['id'])) {
 
 $id = $_SESSION['id'];
 
-$nombre = $_SESSION['nombre'];
+$nombre = $_SESSION['nombreE'];
 
 
 $sql = "SELECT * FROM CentrosTrabajo";
@@ -52,16 +52,23 @@ $sql = "SELECT * FROM CentrosTrabajo";
 				<div class="sb-sidenav-menu">
 					<div class="nav">
 						<a class="nav-link" href="#">
-							<div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-							Correo
+						<a class="nav-link" href="./../correo/correo.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Generar Problema
+                        </a>
+                        <a class="nav-link" href="./../correo/Solucion.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Generar Solución
+                        </a>
 						</a>
 
+						
+
+						<div class="sb-sidenav-menu-heading"></div>
 						<a class="nav-link" href="./../Agregar/centroTrabajo.php">
 							<div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
 							Agregar
 						</a>
-
-						<div class="sb-sidenav-menu-heading"></div>
 						<a class="nav-link" href="departamentos.php">
 							<div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
 							Departamentos
@@ -82,7 +89,7 @@ $sql = "SELECT * FROM CentrosTrabajo";
 					<h1 class="mt-4">Lista centros de Trabajo</h1>
 					<ol class="breadcrumb mb-4">
 						<li class="breadcrumb-item"><a href="principal.php">Principal</a></li>
-						<li class="breadcrumb-item active"><a href="empleados.php">Empleados</a></li>
+						<li class="breadcrumb-item active"><a href="centrosTrabajo.php">Centros de Trabajo</a></li>
 					</ol>
 					<div class="card mb-4">
 						<div class="card-body"></div>

@@ -178,7 +178,7 @@ error_log("Fallo la query");
         <?php
          $resultado = mysqli_query($connLocalhost, $departamentos);
          while($row=mysqli_fetch_assoc($resultado)){
-          echo '<option  value='.$row["idDepartamentos"].'>'.$row["nombreD"].'</option>';
+          echo '<option  value='.$row["clave"].'>'.$row["nombreD"].'</option>';
           
           #echo "<option value=\"{$row['idDepartamentos']}\">{$row['nombre']}</option>"; 
           }

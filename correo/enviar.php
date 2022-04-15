@@ -12,7 +12,19 @@ require 'Mailer-PHP/SMTP.php';
 
 //Create an instance; passing `true` enables exceptions
 $mail = new PHPMailer(true);
+$name = $_SESSION['nombre'];
+$coreoD = $_POST['correoDestinatario'];
+$fecha = $_POST['fecha'];
+$estado = $_POST['estadoP'];
+$detalles = $_POST['detalles'];
 
+$cuerpo = "Enviado desde Gestión de problemas<br>\n".
+          "Nombre: $name<br>\n".
+          "Correo para: $coreoD<br>\n".
+          "Fecha: $fecha<br>\n".
+          "Estado: $estado<br>\n".
+          "Detalles: $detalles<br>\n".
+          "";
 try {
     //Server settings
     $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
@@ -20,7 +32,7 @@ try {
     $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
     $mail->Username   = $_SESSION['correo'];                     //SMTP username
-    $mail->Password   =  $_SESSION['contraseña'];                               //SMTP password
+    $mail->Password   = $_SESSION['desifrada'] ;                               //SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
     $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
@@ -34,8 +46,10 @@ try {
 
     //Content
     $mail->isHTML(true);                                  //Set email format to HTML
-    $mail->Subject = $_POST['nombre'];
-    $mail->Body    = $_POST['detalles'];
+    $mail->Subject = $_POST['nombreP'];
+    $mail->Body    = $cuerpo;
+    
+    
 
 
     $mail->send();
