@@ -12,8 +12,11 @@ if (!isset($_SESSION['id'])) {
 *$nombre = $_SESSION['nombreE']; utilizada para obtener el nombre del usuario que está logeado.
 *$EstadoProblemas="No realizado"; utilizada para obtener los problemas que no ha sido realizados.
 */
-$EstadoProblemas="No realizado";
+$EstadoProblemas = "No realizado";
 $nombre = $_SESSION['nombreE'];
+$codigoE = $_SESSION['numeroEmpleado'];
+
+
 /**
  * Se incluye la conexión a la base de datos y se realiza una sentencia sql
  */
@@ -21,14 +24,50 @@ include("./../conexionBD/conexion.php");
 /**
  * Se realiza la consulta para obtener los datos de la base de datos
  */
-$reportes = "SELECT * FROM Problemas";
-$sql = "SELECT * From Problemas
+
+
+
+if ($_SESSION['rol'] == 'Admin') {
+
+    $reportes = "SELECT * FROM Problemas";
+    $sql = "SELECT * From Problemas
+    Inner join Departamentos on Departamentos.clave = Problemas.idDepartamento
+    Inner join empleados on empleados.numeroEmpleado = Problemas.idEmpleado
+    Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
+    where Problemas.estadoP = '$EstadoProblemas' 
+    ";
+} else {
+    $reportes = "SELECT * FROM Problemas";
+    $sql = "SELECT * From Problemas
+    Inner join Departamentos on Departamentos.clave = Problemas.idDepartamento
+    Inner join empleados on empleados.numeroEmpleado = Problemas.idEmpleado
+    Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
+    where Problemas.idEmpleado = '$codigoE'";
+}
+
+$rowsAlta = "SELECT * From Problemas 
 Inner join Departamentos on Departamentos.clave = Problemas.idDepartamento
 Inner join empleados on empleados.numeroEmpleado = Problemas.idEmpleado
 Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
-where Problemas.estadoP = '$EstadoProblemas'
+WHERE Problemas.Prioridad ='Alta'
 ";
+
+$resultado = mysqli_query($connLocalhost, $rowsAlta);
+$rowcountAlta=mysqli_num_rows($resultado);
+
+
+function comprobar(){
+    if ($_SESSION['rol'] == 'Admin') {
+
+    
+    } else {
+        echo "hidden";
+    }
+}
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -40,7 +79,7 @@ where Problemas.estadoP = '$EstadoProblemas'
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Pagina Principal</title>
-    <link href="./../css/styles1.css" rel="stylesheet" />
+    <link href="./../css/styles.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
 </head>
@@ -52,7 +91,9 @@ where Problemas.estadoP = '$EstadoProblemas'
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $nombre; ?><i class="fas fa-user fa-fw"></i></a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#">Configuración</a>
+                <a class="dropdown-item" href="./../Editar/MiPerfil.php">Mi perfil</a>
+					<div class="dropdown-divider"></div>
+					<a <?php comprobar();?> class="dropdown-item" href="./../correo/Configuracion.php">Configuracion correo</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="./../includes/cerrarSesion.php">Salir</a>
                 </div>
@@ -64,27 +105,17 @@ where Problemas.estadoP = '$EstadoProblemas'
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <a class="nav-link" href="./../correo/correo.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Generar Problema
-                        </a>
-                        <a class="nav-link" href="./../correo/Solucion.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Generar Solución
-                        </a>
-
-                  
-
-
-                        <div class="sb-sidenav-menu-heading"></div>
-                        <a class="nav-link" href="Problemas.php">
+                    <a class="nav-link" href="Problemas.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Problemas
                         </a>
-                        <a class="nav-link" href="departamentos.php">
+
+                        <div class="sb-sidenav-menu-heading"></div>
+                      
+                        <a  class="nav-link" href="departamentos.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Departamentos
-                        </a><a class="nav-link" href="empleados.php">
+                        </a><a  class="nav-link" href="empleados.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Empleados
                         </a>
@@ -97,9 +128,11 @@ where Problemas.estadoP = '$EstadoProblemas'
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
-
+               
+              
             </nav>
         </div>
+     
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid">
@@ -110,36 +143,36 @@ where Problemas.estadoP = '$EstadoProblemas'
                     <div class="row">
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-primary text-white mb-4">
-                                <div class="card-body">Poca urgencia</div>
+                                <div class="card-body">Baja</div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" href="#">Ver Detalles</a>
+                                    <a class="small text-white stretched-link" href="./Prioridades/Baja.php"> Ver Detalles</a>
                                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-warning text-white mb-4">
-                                <div class="card-body">Urgente</div>
+                                <div class="card-body">Media</div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" href="#">Ver Detalles</a>
+                                    <a class="small text-white stretched-link" href="./Prioridades/Media.php">Ver Detalles</a>
                                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-success text-white mb-4">
-                                <div class="card-body">Mucha urgencia</div>
+                                <div class="card-body">Alta <b><?php echo $rowcountAlta; ?></b></div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" href="#">Ver Detalles</a>
+                                    <a class="small text-white stretched-link" href="./Prioridades/Alta.php">Ver Detalles</a>
                                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-danger text-white mb-4">
-                                <div class="card-body">Atención inmediata</div>
+                                <div class="card-body">Urgente</div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" href="#">Ver Detalles</a>
+                                    <a class="small text-white stretched-link" href="./Prioridades/Urgente.php">Ver Detalles</a>
                                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                 </div>
                             </div>
@@ -193,7 +226,7 @@ where Problemas.estadoP = '$EstadoProblemas'
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                      
+
                                         <?php /**
                                          * Se realiza la consulta con la sentencia anteriormente defenida en la linea 25, dicha consulta solicita los datos de reportes
                                          * */
@@ -202,12 +235,12 @@ where Problemas.estadoP = '$EstadoProblemas'
 
 
                                             <tr>
-                                               
+
                                                 <td><?php
-                                                /**
-                                                 * Se comienzan a llenar las columnas con las filas correspondientes de la base de datos.
-                                                 */
-                                                echo $row['claveProblemas']; ?></td>
+                                                    /**
+                                                     * Se comienzan a llenar las columnas con las filas correspondientes de la base de datos.
+                                                     */
+                                                    echo $row['claveProblemas']; ?></td>
 
                                                 <td><?php echo $row['fecha']; ?></td>
 

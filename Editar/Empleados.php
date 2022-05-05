@@ -21,6 +21,17 @@ $nombre = $_SESSION['nombre'];
 $departamentos="SELECT * FROM Departamentos";
 $codigoEmpleado = $_GET['codigoEmpleado'];
 
+
+function comprobar(){
+  if ($_SESSION['rol'] == 'Admin') {
+
+  
+  } else {
+      echo "hidden";
+  }
+}
+
+
 $buscarEmpleado="SELECT * FROM empleados where numeroEmpleado ='$codigoEmpleado'";
 $resQueryLogin = mysqli_query($connLocalhost, $buscarEmpleado) or trigger_error("El query de login de usuario falló");
 
@@ -44,7 +55,7 @@ if (isset($_POST['editar_send'])) {
   $pass = $_POST['contraseña'];
   // Procedemos a añadir a la base de datos al usuario SOLO SI NO HAY ERRORES
   if (!isset($error)) {
-    $idDepartamentos = (int)$_POST['departamento'];
+    $idDepartamentos = $_POST['departamento'];
     $pass_cifrada = password_hash($pass, PASSWORD_DEFAULT);
     // Preparamos la consulta para guardar el registro en la BD
     $queryEdituser = sprintf("UPDATE empleados SET numeroEmpleado='%s', nombreE='%s', correo='%s', usuario='%s', contraseña='%s', idDepartamentos='%s' , estado='%s', rol='%s' WHERE numeroEmpleado =%d",
@@ -96,7 +107,9 @@ error_log("Fallo la query");
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $nombre; ?><i class="fas fa-user fa-fw"></i></a>
 				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="#">Configuración</a>
+				<a class="dropdown-item" href="./../Editar/MiPerfil.php">Mi perfil</a>
+					<div class="dropdown-divider"></div>
+					<a <?php comprobar();?> class="dropdown-item" href="./../correo/Configuracion.php">Configuracion correo</a>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="./../includes/cerrarSesion.php">Salir</a>
 				</div>

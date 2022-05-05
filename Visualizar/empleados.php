@@ -14,7 +14,14 @@ $nombre = $_SESSION['nombreE'];
 $sql = "SELECT * From empleados
 Inner join Departamentos on Departamentos.clave = empleados.idDepartamentos";
 
+function comprobar(){
+    if ($_SESSION['rol'] == 'Admin') {
 
+    
+    } else {
+        echo "hidden";
+    }
+}
 
 ?>
 
@@ -28,7 +35,8 @@ Inner join Departamentos on Departamentos.clave = empleados.idDepartamentos";
 	<meta name="description" content="" />
 	<meta name="author" content="" />
 	<title>Empleados</title>
-	<link href="./../css/styles1.css" rel="stylesheet" />
+	<link href="./../css/styles.css" rel="stylesheet" />
+	<link rel="stylesheet" href="./../css/position.css">
 	<link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
 </head>
@@ -40,7 +48,9 @@ Inner join Departamentos on Departamentos.clave = empleados.idDepartamentos";
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $nombre; ?><i class="fas fa-user fa-fw"></i></a>
 				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="#">Configuración</a>
+					<a class="dropdown-item" href="./../Editar/MiPerfil.php">Mi perfil</a>
+					<div class="dropdown-divider"></div>
+					<a <?php comprobar();?> class="dropdown-item" href="./../correo/Configuracion.php">Configuracion correo</a>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="./../includes/cerrarSesion.php">Salir</a>
 				</div>
@@ -52,19 +62,13 @@ Inner join Departamentos on Departamentos.clave = empleados.idDepartamentos";
 			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
 				<div class="sb-sidenav-menu">
 					<div class="nav">
-					<a class="nav-link" href="./../correo/correo.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Generar Problema
+					<a class="nav-link" href="./../Visualizar/Problemas.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                           Problemas
                         </a>
-                        <a class="nav-link" href="./../correo/Solucion.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Generar Solución
-                        </a>
+                      
 						<div class="sb-sidenav-menu-heading"></div>
-						<a class="nav-link" href="./../Agregar/Empleado.php">
-							<div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-							Registrar
-						</a><a class="nav-link" href="Departamentos.php">
+						<a class="nav-link" href="Departamentos.php">
 							<div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
 							Departamentos
 						</a>
@@ -76,6 +80,9 @@ Inner join Departamentos on Departamentos.clave = empleados.idDepartamentos";
 
 					</div>
 
+				
+             
+					 
 			</nav>
 		</div>
 		<div id="layoutSidenav_content">
@@ -86,8 +93,15 @@ Inner join Departamentos on Departamentos.clave = empleados.idDepartamentos";
 						<li class="breadcrumb-item"><a href="principal.php">Principal</a></li>
 						<li class="breadcrumb-item active"><a href="empleados.php">Empleados</a></li>
 					</ol>
+					
 					<div class="card mb-4">
-						<div class="card-body"></div>
+					
+						<div class="card-body">
+
+						<div class="position-Registrar">
+                            <input <?php comprobar();?> class="diseño-boton" type="submit" onclick="location.href='./../Agregar/Empleado.php';" name="registrar_send" value="Agregar empleado" />
+                        </div>
+						</div>
 					</div>
 					<div class="card mb-4">
 						<div class="card-header"><i class="fas fa-table mr-1"></i>Lista de empleados.</div>
@@ -103,8 +117,8 @@ Inner join Departamentos on Departamentos.clave = empleados.idDepartamentos";
 											<th>Usuario</th>
 											<th>Estado</th>
 											<th>Rol</th>
-											<th>Editar</th>
-											<th>Eliminar</th>
+											<th <?php comprobar();?>>Editar</th>
+											<th <?php comprobar();?>>Eliminar</th>
 										</tr>
 									</thead>
 									<tfoot>
@@ -116,8 +130,8 @@ Inner join Departamentos on Departamentos.clave = empleados.idDepartamentos";
 											<th>Usuario</th>
 											<th>Estado</th>
 											<th>Rol</th>
-											<th>Editar</th>
-											<th>Eliminar</th>
+											<th <?php comprobar();?>>Editar</th>
+											<th <?php comprobar();?>>Eliminar</th>
 										</tr>
 									</tfoot>
 									<tbody>
@@ -132,8 +146,8 @@ Inner join Departamentos on Departamentos.clave = empleados.idDepartamentos";
 												<td><?php echo $row['usuario']; ?></td>
 												<td><?php echo $row['estado']; ?></td>
 												<td><?php echo $row['rol']; ?></td>
-												<td><a href="./../Editar/Empleados.php?codigoEmpleado=<?php echo $row['numeroEmpleado']; ?>">Editar</a></td>
-												<td class="eliminar" id="eliminar"><a href="./../Eliminar/Empleados.php?codigoEmpleado=<?php echo $row['numeroEmpleado']; ?>">Eliminar</a></td>
+												<td <?php comprobar();?>><a href="./../Editar/Empleados.php?codigoEmpleado=<?php echo $row['numeroEmpleado']; ?>">Editar</a></td>
+												<td <?php comprobar();?> class="eliminar" id="eliminar"><a href="./../Eliminar/Empleados.php?codigoEmpleado=<?php echo $row['numeroEmpleado']; ?>">Eliminar</a></td>
 											</tr>
 										<?php } ?>
 									</tbody>

@@ -55,6 +55,7 @@ if (isset($_POST['iniciarsesion'])) {
     $_SESSION['departamento'] = $userData['departamento'];
     $_SESSION['estado'] = $userData['estado'];
     $_SESSION['rol'] = $userData['rol'];
+    $GLOBALS["rol"] =  $_SESSION['rol'] ;
     $hash = $_SESSION['contraseña'];
     $_SESSION['desifrada'] = $passwodDesifrada;
   } else {

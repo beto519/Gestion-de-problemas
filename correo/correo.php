@@ -19,42 +19,70 @@ $nombreDepartamento;
 $departamentos="SELECT * FROM Departamentos";
 $centroTrabajo="SELECT * FROM CentrosTrabajo";
 $empleado="SELECT * FROM empleados where idEmpleados = $id";
+$correoEmisor = "SELECT * FROM Correo";
+$resultado = mysqli_query($connLocalhost, $correoEmisor);
+while ($rowCorreo = mysqli_fetch_assoc($resultado)) {
+    $_SESSION['correoReceptor'] = $rowCorreo['receptor'];
+    $_SESSION['correoEmisor'] = $rowCorreo['emisor'];
+    $_SESSION['correoPassword'] = $rowCorreo['password'];
+    $_SESSION['correoHost'] = $rowCorreo['host'];
+}
+function comprobar(){
+  if ($_SESSION['rol'] == 'Admin') {
 
+  
+  } else {
+      echo "hidden";
+  }
+}
 ?>
 
 <?php
 
 if (isset($_POST['agregar_send'])) {
+  $claveP = $_POST['claveProblemas'];
+  $queryConsultaClave="SELECT * FROM Problemas where claveProblemas = $claveP";
+ $dato = mysqli_query($connLocalhost, $queryConsultaClave) or trigger_error("El query de inserción de problema falló");
+/**
+* 
+*/
+$duplicado = mysqli_num_rows($dato);
+
 
     // Procedemos a añadir a la base de datos al usuario SOLO SI NO HAY ERRORES
-    if (!isset($error)) {
    
-      // Preparamos la consulta para guardar el registro en la BD
-      $queryInsertProblema = sprintf(
-        "INSERT INTO Problemas (claveProblemas,nombreP,fecha,detalles,estadoP,idDepartamento,idCentroTrabajo,idEmpleado,Prioridad) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
-        mysqli_real_escape_string($connLocalhost, trim($_POST['claveProblemas'])),
-        mysqli_real_escape_string($connLocalhost, trim($_POST['nombreP'])),
-        mysqli_real_escape_string($connLocalhost, trim($_POST['fecha'])),
-        mysqli_real_escape_string($connLocalhost, trim($_POST['detalles'])),
-        mysqli_real_escape_string($connLocalhost, trim($_POST['estadoP'])),
-        mysqli_real_escape_string($connLocalhost, trim($_POST['departamento'])),
-        mysqli_real_escape_string($connLocalhost, trim($_POST['centroTrabajo'])),
-        mysqli_real_escape_string($connLocalhost, trim($_POST['empleado'])),
-        mysqli_real_escape_string($connLocalhost, trim($_POST['Prioridad']))
-  
-      );
-  
-      // Ejecutamos el query en la BD
-      mysqli_query($connLocalhost, $queryInsertProblema) or trigger_error("El query de inserción de problema falló");
-       
-include("enviar.php");
-      // Redireccionamos al usuario al Panel de Control
-  
- 
-    }
-  } else {
-  }
+   /**
+    *Verificación que la clave del problema no exista. 
+    */
+    if ($duplicado == 0) {
+  // Preparamos la consulta para guardar el registro en la BD
+  $queryInsertProblema = sprintf(
+    "INSERT INTO Problemas (claveProblemas,nombreP,fecha,detalles,estadoP,idDepartamento,idCentroTrabajo,idEmpleado,Prioridad) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+    mysqli_real_escape_string($connLocalhost, trim($_POST['claveProblemas'])),
+    mysqli_real_escape_string($connLocalhost, trim($_POST['nombreP'])),
+    mysqli_real_escape_string($connLocalhost, trim($_POST['fecha'])),
+    mysqli_real_escape_string($connLocalhost, trim($_POST['detalles'])),
+    mysqli_real_escape_string($connLocalhost, trim($_POST['estadoP'])),
+    mysqli_real_escape_string($connLocalhost, trim($_POST['departamento'])),
+    mysqli_real_escape_string($connLocalhost, trim($_POST['centroTrabajo'])),
+    mysqli_real_escape_string($connLocalhost, trim($_POST['empleado'])),
+    mysqli_real_escape_string($connLocalhost, trim($_POST['Prioridad']))
 
+  );
+  // Ejecutamos el query en la BD
+  mysqli_query($connLocalhost, $queryInsertProblema) or trigger_error("El query de inserción de problema falló");
+  include("enviar.php");
+}
+ else {
+  $error ="La clave del registro ya existe";
+  echo "<script> alert('".$error."'); </script>";
+  
+}
+}
+
+
+
+    
 ?>
 
 <!DOCTYPE html>
@@ -80,7 +108,9 @@ include("enviar.php");
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $nombre; ?><i class="fas fa-user fa-fw"></i></a>
 				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="#">Configuración</a>
+        <a class="dropdown-item" href="./../Editar/MiPerfil.php">Mi perfil</a>
+					<div class="dropdown-divider"></div>
+					<a <?php comprobar();?> class="dropdown-item" href="./../correo/Configuracion.php">Configuracion correo</a>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="./../includes/cerrarSesion.php">Salir</a>
 				</div>
@@ -92,16 +122,16 @@ include("enviar.php");
 			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
 				<div class="sb-sidenav-menu">
 					<div class="nav">
-						<a class="nav-link" href="#">
-							<div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-							
+						<a class="nav-link" href="./../Visualizar/Problemas.php">
+							<div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+							Problemas
 						</a>
 
 
 
 						<div class="sb-sidenav-menu-heading"></div>
 						<a class="nav-link" href="./../Visualizar/centrosTrabajo.php">
-							<div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+							<div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
 							Centros de trabajo
 						</a><a class="nav-link" href="./../Visualizar/empleados.php">
 							<div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
@@ -137,8 +167,8 @@ include("enviar.php");
             <input type="text" name="claveProblemas" placeholder="" value="<?php if (isset($_POST['claveProblemas'])) echo $_POST['claveProblemas']; ?>" />
           </div>
           <div class="input-box">
-            <span class="details">Correo para</span>
-            <input type="text" name="correoDestinatario" placeholder="" value="<?php if (isset($_POST['correoDestinatario'])) echo $_POST['correoDestinatario']; ?>" />
+            <span   class="details">Correo para</span>
+            <input   type="email" name="correoDestinatario" placeholder="" value="<?php echo $_SESSION['correoReceptor']; if (isset($_POST['correoDestinatario'])); ?>" />
           </div>
           <div class="input-box">
             <span class="details">Nombre del problema</span>
@@ -146,33 +176,45 @@ include("enviar.php");
           </div>
           <div class="input-box">
             <span class="details">Fecha</span>
-            <input type="text" name="fecha" placeholder="<?php echo $fechaActual = date('d-m-Y');?>" value="<?php echo $fechaActual = date('d-m-Y'); if (isset($_POST['fecha'])) echo $_POST['fecha']; ?>" />
+            <input type="text" name="fecha" placeholder="<?php echo $fechaActual = date('d-m-Y');?>" value="<?php echo $fechaActual = date('d-m-Y'); if (isset($_POST['fecha']))  ?>" />
           </div>
           <div class="input-box">
             <span class="details">Detalles</span>
-            <input type="text" name="detalles" placeholder="" value="<?php if (isset($_POST['detalles'])) echo $_POST['detalles']; ?>" />
+           
+            <textarea name="detalles" rows="5" cols="214" value="<?php if (isset($_POST['detalles'])) echo $_POST['detalles']; ?>"></textarea>
           </div>
           <div class="input-box">
             <span class="details">Estado</span>
-            <input type="text" name="estadoP" placeholder="" value="<?php if (isset($_POST['estadoP'])) echo $_POST['estadoP']; ?>" />
+      
+          <select class="caja-departamento" name="estadoP">
+              <option  value="No realizado">No realizado</option>
+              <option  value="Realizado">Realizado</option>
+           </select>
           </div>
          
           <div class="input-box">
             <span class="details">Departamento</span>
+            <script> 
+             function cambio(){
+          	document.getElementById("nombreD").value = document.getElementById("departamento").innerText}
+              </script> 
 
-            <select class="caja-departamento" name="departamento">
-        <?php
+
+            <select class="caja-departamento" id = "departamento"name="departamento" onchange="cambio()">
+        
+      <?php
          $resultado = mysqli_query($connLocalhost, $departamentos);
          while($row=mysqli_fetch_assoc($resultado)){
-          echo '<option  value='.$row["clave"].'>'.$row["nombreD"].'</option>';
+          echo '<option   value=' .$row["clave"].'>'.$row["nombreD"].'</option>';
       
-          #echo "<option value=\"{$row['idDepartamentos']}\">{$row['nombre']}</option>"; 
+        
           }
                                          
         ?>
   </select>
 
-
+  <input type="hidden" id="nombreD" name="nombreD" value="<?php if (isset($_POST['nombreD'])) echo $_POST['nombreD']; ?>">
+  </div>
   <div class="input-box">
             <span class="details">Centro de trabajo</span>
 
@@ -182,13 +224,13 @@ include("enviar.php");
          while($row=mysqli_fetch_assoc($resultado)){
           echo '<option  value='.$row["clave"].'>'.$row["nombreC"].'</option>';
           
-          #echo "<option value=\"{$row['idDepartamentos']}\">{$row['nombre']}</option>"; 
+     
           }
                                          
         ?>
   </select>
 
-
+  </div>
 
   <div class="input-box">
             <span class="details">Empleado</span>
@@ -199,15 +241,22 @@ include("enviar.php");
          while($row=mysqli_fetch_assoc($resultado)){
           echo '<option  value='.$row["numeroEmpleado"].'>'.$row["nombreE"].'</option>';
           
-          #echo "<option value=\"{$row['idDepartamentos']}\">{$row['nombre']}</option>"; 
+          
           }
                                          
         ?>
   </select>
-          
+  </div>
           <div class="input-box">
             <span class="details">Prioridad</span>
-            <input type="text" name="Prioridad" placeholder="" value="<?php if (isset($_POST['Prioridad'])) echo $_POST['Prioridad']; ?>" />
+            
+          
+            <select class="caja-departamento" name="Prioridad">
+              <option  value="Urgente">Urgente</option>
+              <option  value="Alta">Alta</option>
+              <option  value="Media">Media</option>
+              <option  value="Baja">Baja</option>
+           </select>
           </div>
 
         

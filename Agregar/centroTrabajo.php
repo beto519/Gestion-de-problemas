@@ -26,9 +26,22 @@ $nombre = $_SESSION['nombreE'];
 
 if (isset($_POST['agregar_send'])) {
 
-    // Procedemos a añadir a la base de datos al usuario SOLO SI NO HAY ERRORES
-    if (!isset($error)) {
-   
+
+	$clave = $_POST['clave'];
+	$queryConsultaClave="SELECT * FROM CentrosTrabajo where clave = $clave";
+   $dato = mysqli_query($connLocalhost, $queryConsultaClave) or trigger_error("El query de inserción de problema falló");
+  /**
+  * 
+  */
+  $duplicado = mysqli_num_rows($dato);
+ 
+	  // Procedemos a añadir a la base de datos al usuario SOLO SI NO HAY ERRORES
+	 
+	 /**
+	  *Verificación que la clave del problema no exista. 
+	  */
+	  if ($duplicado == 0) {
+
       // Preparamos la consulta para guardar el registro en la BD
       $queryInserCentro = sprintf(
         "INSERT INTO CentrosTrabajo (clave,nombreC) VALUES ('%s', '%s')",
@@ -43,10 +56,14 @@ if (isset($_POST['agregar_send'])) {
       // Redireccionamos al usuario al Panel de Control
   
       header("Location: ./../Visualizar/centrosTrabajo.php"); 
-    }
-  } else {
-  }
+  
+	} 
+	else {
+		$error ="Error. Ya existe un centro de trabajo con esa clave.";
+		echo "<script> alert('".$error."'); </script>";
 
+	}
+}
 ?>
 
 <!DOCTYPE html>
@@ -72,7 +89,7 @@ if (isset($_POST['agregar_send'])) {
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $nombre; ?><i class="fas fa-user fa-fw"></i></a>
 				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="#">Configuración</a>
+					<a class="dropdown-item" href="#">Mi perfil</a>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="./../includes/cerrarSesion.php">Salir</a>
 				</div>
@@ -84,16 +101,16 @@ if (isset($_POST['agregar_send'])) {
 			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
 				<div class="sb-sidenav-menu">
 					<div class="nav">
-						<a class="nav-link" href="#">
-							<div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-							
-						</a>
+					<a class="nav-link" href="./../correo/correo.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Generar Problema
+                        </a>
 
 
 
 						<div class="sb-sidenav-menu-heading"></div>
 						<a class="nav-link" href="./../Visualizar/centrosTrabajo.php">
-							<div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+							<div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
 							Centros de trabajo
 						</a><a class="nav-link" href="./../Visualizar/empleados.php">
 							<div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>

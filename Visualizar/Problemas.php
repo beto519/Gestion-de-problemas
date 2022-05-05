@@ -10,12 +10,27 @@ $nombre = $_SESSION['nombreE'];
 //Se incluye la conexión a la base de datos y se realiza una sentencia sql
 include("./../conexionBD/conexion.php");
 $reportes = "SELECT * FROM Problemas";
+
 $sql = "SELECT * From Problemas
 Inner join Departamentos on Departamentos.clave = Problemas.idDepartamento
 Inner join empleados on empleados.numeroEmpleado = Problemas.idEmpleado
 Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
 
 ";
+
+
+
+
+
+
+function comprobar()
+{
+    if ($_SESSION['rol'] == 'Admin') {
+    } else {
+        echo "hidden";
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -28,7 +43,8 @@ Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Problemas</title>
-    <link href="./../css/styles1.css" rel="stylesheet" />
+    <link href="./../css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./../css/position.css">
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
 </head>
@@ -40,7 +56,9 @@ Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $nombre; ?><i class="fas fa-user fa-fw"></i></a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#">Configuración</a>
+                    <a class="dropdown-item" href="./../Editar/MiPerfil.php">Mi perfil</a>
+                    <div class="dropdown-divider"></div>
+                    <a <?php comprobar(); ?> class="dropdown-item" href="./../correo/Configuracion.php">Configuracion correo</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="./../includes/cerrarSesion.php">Salir</a>
                 </div>
@@ -52,19 +70,6 @@ Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <a class="nav-link" href="./../correo/correo.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Generar Problemas
-                        </a>
-                        <a class="nav-link" href="./../correo/Solucion.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Generar Solución
-                        </a>
-
-                  
-
-
-                        <div class="sb-sidenav-menu-heading"></div>
                         <a class="nav-link" href="departamentos.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Departamentos
@@ -77,7 +82,10 @@ Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
                             Centros de trabajo
                         </a>
 
-
+                        <a class="nav-link" href="./../Reportes/ReportePdf.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            Reporte
+                        </a>
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
@@ -91,9 +99,15 @@ Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active">Problemas</li>
                     </ol>
-                    <div class="row">
-                     
-                      
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="position-Registrar">
+                                <input <?php comprobar(); ?> class="diseño-boton" type="submit" onclick="location.href='./../correo/correo.php';" name="registrar_send" value="Registrar problema" />
+                            </div>
+
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-xl-6">
                             <div class="card mb-4">
@@ -125,7 +139,10 @@ Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
                                             <th>Centro de trabajo</th>
                                             <th>Empleado</th>
                                             <th>Prioridad</th>
-                                           
+                                            <th>Reporte</th>
+                                            <th>Ver detalles</th>
+                                            <th <?php comprobar(); ?>>Solución</th>
+
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -140,7 +157,10 @@ Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
                                             <th>Centro de trabajo</th>
                                             <th>Empleado</th>
                                             <th>Prioridad</th>
-                                            
+                                            <th>Reporte</th>
+                                            <th>Ver detalles</th>
+                                            <th <?php comprobar(); ?>>Solución</th>
+
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -154,7 +174,6 @@ Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
                                                 <td><?php echo $row['claveProblemas']; ?></td>
 
                                                 <td><?php echo $row['fecha']; ?></td>
-
                                                 <td><?php echo $row['nombreP']; ?></td>
                                                 <td><?php echo $row['detalles']; ?></td>
                                                 <td><?php echo $row['estadoP']; ?></td>
@@ -162,7 +181,10 @@ Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
                                                 <td><?php echo $row['nombreC']; ?></td>
                                                 <td><?php echo $row['nombreE']; ?></td>
                                                 <td><?php echo $row['Prioridad']; ?></td>
-                                               
+                                                <td><a href="./../Reportes/CadaProblema.php?claveProblemas=<?php echo $row['claveProblemas']; ?>">PDF</a></td>
+                                                <td> <a href="./../Visualizar/Detalles.php?claveProblemas=<?php echo $row['claveProblemas']; ?>">Detalles</a></td>
+                                                <td> <?php comprobar(); ?> <a href="./../Correo/Solucion.php?claveProblemas=<?php echo $row['claveProblemas']; ?>">Generar Solución</a></td>
+
                                             </tr>
 
                                         <?php } ?>
@@ -177,7 +199,7 @@ Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
                             </div>
                         </div>
                     </div>
-                </div>
+
             </main>
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid">

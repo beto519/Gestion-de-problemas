@@ -72,7 +72,7 @@ if (isset($_POST['agregar_send'])) {
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $nombre; ?><i class="fas fa-user fa-fw"></i></a>
 				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="#">Configuración</a>
+					<a class="dropdown-item" href="#">Mi perfil</a>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="./../includes/cerrarSesion.php">Salir</a>
 				</div>
@@ -84,10 +84,10 @@ if (isset($_POST['agregar_send'])) {
 			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
 				<div class="sb-sidenav-menu">
 					<div class="nav">
-						<a class="nav-link" href="#">
-							<div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-							
-						</a>
+					<a class="nav-link" href="./../correo/correo.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Generar Problema
+                        </a>
 
 
 

@@ -13,7 +13,14 @@ $nombre = $_SESSION['nombreE'];
 
 $sql = "SELECT * FROM CentrosTrabajo";
 
+function comprobar(){
+    if ($_SESSION['rol'] == 'Admin') {
 
+    
+    } else {
+        echo "hidden";
+    }
+}
 
 ?>
 
@@ -27,7 +34,8 @@ $sql = "SELECT * FROM CentrosTrabajo";
 	<meta name="description" content="" />
 	<meta name="author" content="" />
 	<title>Centros de Trabajo</title>
-	<link href="./../css/styles1.css" rel="stylesheet" />
+	<link href="./../css/styles.css" rel="stylesheet" />
+	<link rel="stylesheet" href="./../css/position.css">
 	<link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
 </head>
@@ -39,7 +47,9 @@ $sql = "SELECT * FROM CentrosTrabajo";
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $nombre; ?><i class="fas fa-user fa-fw"></i></a>
 				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="#">Configuración</a>
+				<a class="dropdown-item" href="./../Editar/MiPerfil.php">Mi perfil</a>
+					<div class="dropdown-divider"></div>
+					<a <?php comprobar();?> class="dropdown-item" href="./../correo/Configuracion.php">Configuracion correo</a>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="./../includes/cerrarSesion.php">Salir</a>
 				</div>
@@ -51,26 +61,20 @@ $sql = "SELECT * FROM CentrosTrabajo";
 			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
 				<div class="sb-sidenav-menu">
 					<div class="nav">
-						<a class="nav-link" href="#">
-						<a class="nav-link" href="./../correo/correo.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Generar Problema
-                        </a>
-                        <a class="nav-link" href="./../correo/Solucion.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Generar Solución
-                        </a>
-						</a>
+					
 
+						<a class="nav-link" href="./../Visualizar/Problemas.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                           Problemas
+                        </a>
+                      
+						
 						
 
 						<div class="sb-sidenav-menu-heading"></div>
-						<a class="nav-link" href="./../Agregar/centroTrabajo.php">
-							<div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-							Agregar
-						</a>
+					
 						<a class="nav-link" href="departamentos.php">
-							<div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+							<div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
 							Departamentos
 						</a><a class="nav-link" href="empleados.php">
 							<div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
@@ -92,7 +96,12 @@ $sql = "SELECT * FROM CentrosTrabajo";
 						<li class="breadcrumb-item active"><a href="centrosTrabajo.php">Centros de Trabajo</a></li>
 					</ol>
 					<div class="card mb-4">
-						<div class="card-body"></div>
+						<div class="card-body">
+						<div class="position-Registrar">
+                            <input <?php comprobar();?> class="diseño-boton" type="submit" onclick="location.href='./../Agregar/centroTrabajo.php';" name="registrar_send" value="Agregar empleado" />
+                        </div>
+						
+						</div>
 					</div>
 					<div class="card mb-4">
 						<div class="card-header"><i class="fas fa-table mr-1"></i>Lista de centros de trabajo.</div>
@@ -103,8 +112,8 @@ $sql = "SELECT * FROM CentrosTrabajo";
 										<tr>
 											<th>Clave</th>
 											<th>Nombre</th>
-											<th>Editar</th>
-											<th>Eliminar</th>
+											<th <?php comprobar();?>>Editar</th>
+											<th <?php comprobar();?>>Eliminar</th>
 
 										</tr>
 									</thead>
@@ -112,8 +121,8 @@ $sql = "SELECT * FROM CentrosTrabajo";
 										<tr>
 											<th>Clave</th>
 											<th>Nombre</th>
-											<th>Editar</th>
-											<th>Eliminar</th>
+											<th <?php comprobar();?>>Editar</th>
+											<th <?php comprobar();?>>Eliminar</th>
 										</tr>
 									</tfoot>
 									<tbody>
@@ -123,8 +132,8 @@ $sql = "SELECT * FROM CentrosTrabajo";
 											<tr>
 												<td><?php echo $row['clave']; ?></td>
 												<td><?php echo $row['nombreC']; ?></td>
-												<td><a href="./../Editar/centroTrabajo.php?clave=<?php echo $row['clave']; ?>">Editar</a></td>
-												<td class="eliminar" id="eliminar"><a href="./../Eliminar/CentrosTrabajo.php?clave=<?php echo $row['clave']; ?>">Eliminar</a></td>
+												<td <?php comprobar();?>><a href="./../Editar/centroTrabajo.php?clave=<?php echo $row['clave']; ?>">Editar</a></td>
+												<td <?php comprobar();?> class="eliminar" id="eliminar"><a href="./../Eliminar/CentrosTrabajo.php?clave=<?php echo $row['clave']; ?>">Eliminar</a></td>
 
 											</tr>
 										<?php } ?>

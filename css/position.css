@@ -1,0 +1,12 @@
+
+.diseño-boton{
+
+    color:#007bff;
+   background-color: white;
+   border-color: black;
+   margin-left: 1420px;
+}
+.diseño-boton:hover{
+border-color: #007bff;
+
+}

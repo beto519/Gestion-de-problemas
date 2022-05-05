@@ -17,6 +17,16 @@ $nombre = $_SESSION['nombre'];
 
 $claveDepartamento = $_GET['clave'];
 
+
+function comprobar(){
+    if ($_SESSION['rol'] == 'Admin') {
+
+    
+    } else {
+        echo "hidden";
+    }
+}
+
 $buscarCentroTrabajo = "SELECT * FROM Departamentos where clave ='$claveDepartamento'";
 $resQueryLogin = mysqli_query($connLocalhost, $buscarCentroTrabajo) or trigger_error("El query de login de usuario falló");
 // Hacemos un fetch del recordset
@@ -72,7 +82,9 @@ if (isset($_POST['editar_send'])) {
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $nombre; ?><i class="fas fa-user fa-fw"></i></a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#">Configuración</a>
+                <a class="dropdown-item" href="./../Editar/MiPerfil.php">Mi perfil</a>
+					<div class="dropdown-divider"></div>
+					<a <?php comprobar();?> class="dropdown-item" href="./../correo/Configuracion.php">Configuracion correo</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="./../includes/cerrarSesion.php">Salir</a>
                 </div>

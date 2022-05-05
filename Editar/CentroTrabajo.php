@@ -17,6 +17,17 @@ $nombre = $_SESSION['nombre'];
 
 $claveCentoTrabajo = $_GET['clave'];
 
+function comprobar(){
+    if ($_SESSION['rol'] == 'Admin') {
+
+    
+    } else {
+        echo "hidden";
+    }
+}
+
+
+
 $buscarCentroTrabajo = "SELECT * FROM CentrosTrabajo where clave ='$claveCentoTrabajo'";
 $resQueryLogin = mysqli_query($connLocalhost, $buscarCentroTrabajo) or trigger_error("El query de login de usuario falló");
 // Hacemos un fetch del recordset
@@ -72,7 +83,9 @@ if (isset($_POST['editar_send'])) {
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $nombre; ?><i class="fas fa-user fa-fw"></i></a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#">Configuración</a>
+                <a class="dropdown-item" href="./../Editar/MiPerfil.php">Mi perfil</a>
+					<div class="dropdown-divider"></div>
+					<a <?php comprobar();?> class="dropdown-item" href="./../correo/Configuracion.php">Configuracion correo</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="./../includes/cerrarSesion.php">Salir</a>
                 </div>
@@ -82,28 +95,29 @@ if (isset($_POST['editar_send'])) {
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                <div class="sb-sidenav-menu">
+            <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="./../correo/correo.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-
+                            Generar Problema
                         </a>
+                  
 
+                  
 
 
                         <div class="sb-sidenav-menu-heading"></div>
-                        <a class="nav-link" href="Agregar/Empleado.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            Registrar
-                        </a><a class="nav-link" href="Editar/Empleados.php">
+                        <a class="nav-link" href="./../Visualizar/departamentos.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Editar
-                        </a>
-                        <a class="nav-link" href="centrosTrabajo.php">
+                            Departamentos
+                        </a><a class="nav-link" href="./../Visualizar/empleados.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Eliminar
+                            Empleados
                         </a>
-
+                        <a class="nav-link" href="./../Visualizar/centrosTrabajo.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            Centros de trabajo
+                        </a>
 
                     </div>
 
@@ -126,7 +140,7 @@ if (isset($_POST['editar_send'])) {
                         <div class="user-details">
                             <div class="input-box">
                                 <span class="details">Clave</span>
-                                <input type="text" name="clave" placeholder=" <?php echo $CodigoBusqueda; ?>" value="<?php echo $CodigoBusqueda; ?><?php if (isset($_POST['clave'])) echo $_POST['clave']; ?>" />
+                                <input disabled type="text" name="clave" placeholder=" <?php echo $CodigoBusqueda; ?>" value="<?php echo $CodigoBusqueda; ?><?php if (isset($_POST['clave'])) echo $_POST['clave']; ?>" />
                             </div>
                             <div class="input-box">
                                 <span class="details">Nombre</span>
