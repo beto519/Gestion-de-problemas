@@ -9,14 +9,38 @@ if (!isset($_SESSION['id'])) {
 $nombre = $_SESSION['nombreE'];
 //Se incluye la conexión a la base de datos y se realiza una sentencia sql
 include("./../conexionBD/conexion.php");
+$codigoE = $_SESSION['numeroEmpleado'];
+$EstadoProblemas = "No realizado";
 $reportes = "SELECT * FROM Problemas";
 
-$sql = "SELECT * From Problemas
-Inner join Departamentos on Departamentos.clave = Problemas.idDepartamento
-Inner join empleados on empleados.numeroEmpleado = Problemas.idEmpleado
-Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
 
-";
+
+if ($_SESSION['rol'] == 'Admin') {
+    $sql = "SELECT * From Problemas
+    Inner join Departamentos on Departamentos.clave = Problemas.idDepartamento
+    Inner join empleados on empleados.numeroEmpleado = Problemas.idEmpleado
+    Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
+    
+    ";
+} if($_SESSION['rol'] == 'Reparador'){
+    $sql = "SELECT * From Problemas
+    Inner join Departamentos on Departamentos.clave = Problemas.idDepartamento
+    Inner join empleados on empleados.numeroEmpleado = Problemas.idEmpleado
+    Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
+    where Problemas.estadoP = '$EstadoProblemas' 
+    ";
+}else{
+
+    $sql = "SELECT * From Problemas
+    Inner join Departamentos on Departamentos.clave = Problemas.idDepartamento
+    Inner join empleados on empleados.numeroEmpleado = Problemas.idEmpleado
+    Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
+    where Problemas.idEmpleado = '$codigoE'
+    ";
+
+}
+
+
 
 
 
@@ -110,7 +134,7 @@ function comprobarReparador()
                     <div class="card mb-4">
                         <div class="card-body">
                             <div class="position-Registrar">
-                                <input <?php comprobar(); ?> class="diseño-boton" type="submit" onclick="location.href='./../correo/correo.php';" name="registrar_send" value="Registrar problema" />
+                                <input class="diseño-boton" type="submit" onclick="location.href='./../correo/correo.php';" name="registrar_send" value="Registrar problema" />
                             </div>
 
                         </div>
@@ -149,7 +173,7 @@ function comprobarReparador()
                                             <th>Prioridad</th>
                                             <th>Reporte</th>
                                             <th>Ver detalles</th>
-                                            <th <?php comprobar(); ?>>Solución</th>
+                                            <th <?php comprobarReparador(); ?>>Solución</th>
 
                                         </tr>
                                     </thead>
@@ -167,7 +191,7 @@ function comprobarReparador()
                                             <th>Prioridad</th>
                                             <th>Reporte</th>
                                             <th>Ver detalles</th>
-                                            <th <?php comprobar(); ?>>Solución</th>
+                                            <th <?php comprobarReparador(); ?>>Solución</th>
 
                                         </tr>
                                     </tfoot>
@@ -191,7 +215,7 @@ function comprobarReparador()
                                                 <td><?php echo $row['Prioridad']; ?></td>
                                                 <td><a href="./../Reportes/CadaProblema.php?claveProblemas=<?php echo $row['claveProblemas']; ?>">PDF</a></td>
                                                 <td> <a href="./../Visualizar/Detalles.php?claveProblemas=<?php echo $row['claveProblemas']; ?>">Detalles</a></td>
-                                                <td> <?php comprobarReparador(); ?> <a href="./../Correo/Solucion.php?claveSolucion=<?php echo $row['claveProblemas'];?>">Generar Solución</a></td>
+                                                <td <?php comprobarReparador();?>>  <a href="./../Correo/Solucion.php?claveSolucion=<?php echo $row['claveProblemas'];?>">Generar Solución</a></td>
 
                                             </tr>
 
