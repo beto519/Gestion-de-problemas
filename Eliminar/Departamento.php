@@ -17,10 +17,28 @@ $nombre = $_SESSION['nombre'];
 
 $claveDepartamento = $_GET['clave'];
 
-$borrarDepartamento ="Delete FROM Departamentos where clave ='$claveDepartamento'";
-$resQueryLogin = mysqli_query($connLocalhost, $borrarDepartamento) or trigger_error("El query de login de usuario falló");
+$querybusquedaFilas = "SELECT * From Problemas where idDepartamento = '$claveDepartamento';
+";
 
-header("Location: ./../Visualizar/Departamentos.php");
+$resultado = mysqli_query($connLocalhost, $querybusquedaFilas);
+$rowCount=mysqli_num_rows($resultado);
+if($rowCount!=0){
+  $error ="El dato ya se encuentra en un problema";
+  echo "<script> alert('".$error."'); </script>";
+
+  header("Location: ./../Visualizar/Departamentos.php");
+}else
+{
+  $borrarDepartamento ="Delete FROM Departamentos where clave ='$claveDepartamento'";
+  $resQueryLogin = mysqli_query($connLocalhost, $borrarDepartamento) or trigger_error("El query de login de usuario falló");
+  header("Location: ./../Visualizar/Departamentos.php");
+
+}
+
+
+
+
+
 
 
 

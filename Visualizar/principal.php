@@ -55,9 +55,48 @@ WHERE Problemas.Prioridad ='Alta'
 $resultado = mysqli_query($connLocalhost, $rowsAlta);
 $rowcountAlta=mysqli_num_rows($resultado);
 
+$rowsBaja = "SELECT * From Problemas 
+Inner join Departamentos on Departamentos.clave = Problemas.idDepartamento
+Inner join empleados on empleados.numeroEmpleado = Problemas.idEmpleado
+Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
+WHERE Problemas.Prioridad ='Baja'
+";
+
+$resultado = mysqli_query($connLocalhost, $rowsBaja);
+$rowcountBaja=mysqli_num_rows($resultado);
+
+$rowsMedia = "SELECT * From Problemas 
+Inner join Departamentos on Departamentos.clave = Problemas.idDepartamento
+Inner join empleados on empleados.numeroEmpleado = Problemas.idEmpleado
+Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
+WHERE Problemas.Prioridad ='Media'
+";
+
+$resultado = mysqli_query($connLocalhost, $rowsMedia);
+$rowcountMedia=mysqli_num_rows($resultado);
+
+$rowsUrgente= "SELECT * From Problemas 
+Inner join Departamentos on Departamentos.clave = Problemas.idDepartamento
+Inner join empleados on empleados.numeroEmpleado = Problemas.idEmpleado
+Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
+WHERE Problemas.Prioridad ='Urgente'
+";
+
+$resultado = mysqli_query($connLocalhost, $rowsUrgente);
+$rowcountUrgente=mysqli_num_rows($resultado);
 
 function comprobar(){
     if ($_SESSION['rol'] == 'Admin') {
+
+    
+    } else {
+        echo "hidden";
+    }
+}
+
+
+function comprobarReparador(){
+    if ($_SESSION['rol'] == 'Reparador' or $_SESSION['rol'] == 'Admin') {
 
     
     } else {
@@ -80,6 +119,7 @@ function comprobar(){
     <meta name="author" content="" />
     <title>Pagina Principal</title>
     <link href="./../css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./../css/position.css">
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
 </head>
@@ -140,10 +180,12 @@ function comprobar(){
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active">Pagina principal</li>
                     </ol>
-                    <div class="row">
+                    <div <?php comprobarReparador();?> class="row">
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-primary text-white mb-4">
-                                <div class="card-body">Baja</div>
+                                <div class="position-prioridades">  <b><?php echo $rowcountBaja; ?></b></div>
+                          
+                                <div class="card-body">Baja </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
                                     <a class="small text-white stretched-link" href="./Prioridades/Baja.php"> Ver Detalles</a>
                                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -152,7 +194,9 @@ function comprobar(){
                         </div>
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-warning text-white mb-4">
-                                <div class="card-body">Media</div>
+                            <div class="position-prioridades">   <b><?php echo $rowcountMedia; ?></b></div>
+                         
+                                <div class="card-body">Media </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
                                     <a class="small text-white stretched-link" href="./Prioridades/Media.php">Ver Detalles</a>
                                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -161,7 +205,9 @@ function comprobar(){
                         </div>
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-success text-white mb-4">
-                                <div class="card-body">Alta <b><?php echo $rowcountAlta; ?></b></div>
+                            <div class="position-prioridades"> <b><?php echo $rowcountAlta; ?></b> </div>
+                           
+                                <div class="card-body">Alta </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
                                     <a class="small text-white stretched-link" href="./Prioridades/Alta.php">Ver Detalles</a>
                                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -170,7 +216,8 @@ function comprobar(){
                         </div>
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-danger text-white mb-4">
-                                <div class="card-body">Urgente</div>
+                            <div class="position-prioridades">   <b><?php echo $rowcountUrgente; ?></b></div>
+                                <div class="card-body">Urgente</b></div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
                                     <a class="small text-white stretched-link" href="./Prioridades/Urgente.php">Ver Detalles</a>
                                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>

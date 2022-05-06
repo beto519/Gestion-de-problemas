@@ -17,10 +17,27 @@ $nombre = $_SESSION['nombre'];
 
 $claveCentoTrabajo = $_GET['clave'];
 
-$borrarEmpleados ="Delete FROM CentrosTrabajo where clave ='$claveCentoTrabajo'";
-$resQueryLogin = mysqli_query($connLocalhost, $borrarEmpleados) or trigger_error("El query de login de usuario falló");
 
-header("Location: ./../Visualizar/centrosTrabajo.php");
+$querybusquedaFilas = "SELECT * From Problemas where idCentroTrabajo = '$claveCentoTrabajo';
+";
+
+$resultado = mysqli_query($connLocalhost, $querybusquedaFilas);
+$rowCount=mysqli_num_rows($resultado);
+
+if($rowCount!=0){
+  $error ="El dato ya se encuentra en un problema";
+  echo "<script> alert('".$error."'); </script>";
+
+  header("Location: ./../Visualizar/centrosTrabajo.php");
+
+}else
+{
+  $borrarEmpleados ="Delete FROM CentrosTrabajo where clave ='$claveCentoTrabajo'";
+  $resQueryLogin = mysqli_query($connLocalhost, $borrarEmpleados) or trigger_error("El query de login de usuario falló");
+  
+  header("Location: ./../Visualizar/centrosTrabajo.php");
+}
+
 
 
 

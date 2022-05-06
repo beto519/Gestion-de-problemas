@@ -31,6 +31,14 @@ function comprobar()
     }
 }
 
+function comprobarReparador()
+{
+    if ($_SESSION['rol'] == 'Admin' or $_SESSION['rol'] == 'Reparador') {
+    } else {
+        echo "hidden";
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -183,7 +191,7 @@ function comprobar()
                                                 <td><?php echo $row['Prioridad']; ?></td>
                                                 <td><a href="./../Reportes/CadaProblema.php?claveProblemas=<?php echo $row['claveProblemas']; ?>">PDF</a></td>
                                                 <td> <a href="./../Visualizar/Detalles.php?claveProblemas=<?php echo $row['claveProblemas']; ?>">Detalles</a></td>
-                                                <td> <?php comprobar(); ?> <a href="./../Correo/Solucion.php?claveProblemas=<?php echo $row['claveProblemas']; ?>">Generar Solución</a></td>
+                                                <td> <?php comprobarReparador(); ?> <a href="./../Correo/Solucion.php?claveSolucion=<?php echo $row['claveProblemas'];?>">Generar Solución</a></td>
 
                                             </tr>
 

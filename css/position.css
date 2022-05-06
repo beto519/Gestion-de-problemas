@@ -1,12 +1,19 @@
+.diseño-boton {
 
-.diseño-boton{
-
-    color:#007bff;
-   background-color: white;
-   border-color: black;
-   margin-left: 1420px;
+    color: #007bff;
+    background-color: white;
+    border-color: black;
+    margin-left: 1420px;
 }
-.diseño-boton:hover{
-border-color: #007bff;
 
+.diseño-boton:hover {
+    border-color: #007bff;
+
+}
+
+.position-prioridades b {
+
+    font-size: 22px;
+    color: rgb(255, 255, 255);
+    margin-left: 190px;
 }
