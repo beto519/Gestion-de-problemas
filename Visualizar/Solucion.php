@@ -13,6 +13,19 @@ if (!isset($_SESSION)) {
 include("./../conexionBD/conexion.php");
 
 $id = $_SESSION['id'];
+$correoEmisor = "SELECT * FROM Correo";
+$resultado = mysqli_query($connLocalhost, $correoEmisor);
+while ($rowCorreo = mysqli_fetch_assoc($resultado)) {
+    $_SESSION['correoReceptor'] = $rowCorreo['receptor'];
+    $_SESSION['correoEmisor'] = $rowCorreo['emisor'];
+    $_SESSION['correoPassword'] = $rowCorreo['password'];
+    $_SESSION['correoHost'] = $rowCorreo['host'];
+}
+$claveP = $_GET['claveSolucion'];
+$queryConsultaClave="SELECT * FROM Soluciones where idProblema = $claveP";
+$con = mysqli_query($connLocalhost, $queryConsultaClave) or trigger_error("El query de inserción de problema falló");
+$dato=mysqli_fetch_assoc($con);
+
 
 
 
@@ -29,7 +42,10 @@ $nombreDepartamento;
 $departamentos = "SELECT * FROM Departamentos";
 $centroTrabajo = "SELECT * FROM CentrosTrabajo";
 $empleado = "SELECT * FROM empleados where idEmpleados = $id";
-$codigoProblema = $_GET['claveSolucion'];
+
+
+
+
 
 
 
@@ -37,47 +53,7 @@ $codigoProblema = $_GET['claveSolucion'];
 
 <?php
 
-if (isset($_POST['agregar_send'])) {
 
-	// Procedemos a añadir a la base de datos al usuario SOLO SI NO HAY ERRORES
-	if (!isset($error)) {
-
-		
-
-		
-		// Preparamos la consulta para guardar el registro en la BD
-		$queryInsertProblema = sprintf(
-			"INSERT INTO Soluciones (clave,nombre,detalles,idProblema,fechaS) VALUES ('%s', '%s', '%s', '%s', '%s')",
-			mysqli_real_escape_string($connLocalhost, trim($_POST['clave'])),
-			mysqli_real_escape_string($connLocalhost, trim($_POST['nombre'])),
-			mysqli_real_escape_string($connLocalhost, trim($_POST['detalles'])),
-			mysqli_real_escape_string($connLocalhost, trim($_POST['claveProblemas'])),
-			mysqli_real_escape_string($connLocalhost, trim($_POST['fechaS']))
-
-		);
-
-
-		// Ejecutamos el query en la BD
-		mysqli_query($connLocalhost, $queryInsertProblema) or trigger_error("El query de inserción de problema falló");
-
-
-		$queryEditProblema = sprintf(
-			"UPDATE Problemas SET  estadoP='%s' WHERE claveProblemas =%s",
-			mysqli_real_escape_string($connLocalhost, trim($_POST['estadoP'])),
-			mysqli_real_escape_string($connLocalhost, trim($_POST['claveProblemas']))
-	  
-		  );
-	  
-		  // Ejecutamos el query en la BD
-		  mysqli_query($connLocalhost, $queryEditProblema) or trigger_error("El query de edicion de usuarios falló");
-
-
-
-		
-		include("enviar.php");
-	}
-} else {
-}
 
 ?>
 
@@ -90,7 +66,7 @@ if (isset($_POST['agregar_send'])) {
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	<meta name="description" content="" />
 	<meta name="author" content="" />
-	<title>Agregar Solución</title>
+	<title>Ver Solución</title>
 	<link href="./../css/styleEditar.css" rel="stylesheet" />
 
 	<link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
@@ -118,25 +94,28 @@ if (isset($_POST['agregar_send'])) {
 			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
 				<div class="sb-sidenav-menu">
 					<div class="nav">
-						<a class="nav-link" href="#">
-							<div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+						
+                        <a class="nav-link" href="Problemas.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            Problemas
+                        </a>
 
-						</a>
+					
 
 
 
 						<div class="sb-sidenav-menu-heading"></div>
-						<a class="nav-link" href="./../Visualizar/centrosTrabajo.php">
-							<div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-							Centros de trabajo
-						</a><a class="nav-link" href="./../Visualizar/empleados.php">
-							<div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-							Empleados
-						</a>
-						<a class="nav-link" href="./../Visualizar/Departamentos.php">
-							<div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-							Departamentos
-						</a>
+                        <a class="nav-link" href="departamentos.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            Departamentos
+                        </a><a class="nav-link" href="empleados.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            Empleados
+                        </a>
+                        <a class="nav-link" href="centrosTrabajo.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            Centros de trabajo
+                        </a>
 
 
 					</div>
@@ -146,69 +125,64 @@ if (isset($_POST['agregar_send'])) {
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid">
-					<h1 class="mt-4">Agregar Solución</h1>
+					<h1 class="mt-4">Ver Solución</h1>
 					<ol class="breadcrumb mb-4">
 						<li class="breadcrumb-item"><a href="./../Visualizar/principal.php">Principal</a></li>
 						<li class="breadcrumb-item"><a href="./../Visualizar/principal.php">Solución</a></li>
-						<li class="breadcrumb-item active"><a href="">Agregar</a></li>
+						<li class="breadcrumb-item active"><a href="">Visualizar</a></li>
 					</ol>
 
 
 
 					<form action="Solucion.php" method='post'>
-						<form action="enviar.php" method='post'>
+					
 							<div class="user-details">
 								<div class="input-box">
 									
 									<span class="details">Clave</span>
-									<input type="text" name="clave" placeholder="" value="<?php if (isset($_POST['clave'])) echo $_POST['clave']; ?>" />
+									<input readonly type="text" name="clave" placeholder="" value="<?php if (isset($dato['clave'])); echo $dato['clave']; ?>" />
 								</div>
-								<div class="input-box">
+								<div  class="input-box">
 									<span class="details">Correo para</span>
-									<input type="email" name="correoDestinatario" placeholder="" value="<?php echo $_SESSION['correoReceptor']; if (isset($_POST['correoDestinatario'])); ?>" />
+									<input readonly type="email" name="correoDestinatario" placeholder="" value="<?php echo $_SESSION['correoReceptor']; ?>" />
 								</div>
 								<div class="input-box">
 									<span class="details">Fecha</span>
-									<input type="" name="fechaS" placeholder="<?php echo $fechaActual = date('d-m-Y'); ?>" value="<?php echo $fechaActual = date('d-m-Y');
-																																if (isset($_POST['fechaS'])) echo $_POST['fechaS']; ?>" />
+									<input readonly type="" name="fecha" placeholder="<?php echo $dato['fechaS']; ?>" />
 								</div>
 								
 									<div class="input-box">
 										<span class="details">Datos de la Solución</span>
-										<input type="text" name="nombre" placeholder="" value="<?php if (isset($_POST['nombre'])) echo $_POST['nombre']; ?>" />
+										<input readonly type="text" name="nombre" placeholder="" value="<?php echo $dato['nombre']; ?>" />
 									</div>
 
 									<div class="input-box">
 										<span class="details">Detalles</span>
 
-										<textarea name="detalles" rows="5" cols="214" value="<?php if (isset($_POST['detalles'])) echo $_POST['detalles']; ?>"></textarea>
+										<textarea readonly name="detalles" rows="5" cols="214" value=""><?php echo $dato['detalles']; ?></textarea>
 									</div>
 									
 									<div class="input-box">
 										<span class="details">Estado</span>
 
-										<select class="caja-departamento" name="estadoP">
-											<option value="Realizado">Realizado</option>
-										</select>
-
+					
+                                        <input readonly type="text" name="estadoP" placeholder="" value="<?php echo "Realizado"; ?>" />
 
 									</div>
 									<div class="input-box">
 										<span class="details">Codigo Problema</span>
 
-										<input readonly type="text" name="claveProblemas" placeholder=" <?php echo $codigoProblema; ?>" value="<?php echo $codigoProblema; ?><?php if (isset($_POST['claveProblemas'])); ?>" />
+										<input readonly readonly type="text" name="claveProblemas" placeholder=" <?php echo $codigoProblema; ?>" value="<?php echo $dato['idProblema']; ?>" />
 									</div>
 									
 
 
 								</div>
-								<div class="button">
-									<input type="submit" name="agregar_send" value="Enviar Solución" />
-								</div>
+								
 
 							</div>
 						</form>
-					</form>
+				
 				</div>
 		</div>
 	</div>

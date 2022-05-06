@@ -174,7 +174,7 @@ function comprobarReparador()
                                             <th>Reporte</th>
                                             <th>Ver detalles</th>
                                             <th <?php comprobarReparador(); ?>>Solución</th>
-
+                                            <th <?php  ?>>Ver Solucion</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -192,6 +192,7 @@ function comprobarReparador()
                                             <th>Reporte</th>
                                             <th>Ver detalles</th>
                                             <th <?php comprobarReparador(); ?>>Solución</th>
+                                            <th <?php  ?>>Ver Solucion</th>
 
                                         </tr>
                                     </tfoot>
@@ -216,7 +217,7 @@ function comprobarReparador()
                                                 <td><a href="./../Reportes/CadaProblema.php?claveProblemas=<?php echo $row['claveProblemas']; ?>">PDF</a></td>
                                                 <td> <a href="./../Visualizar/Detalles.php?claveProblemas=<?php echo $row['claveProblemas']; ?>">Detalles</a></td>
                                                 <td <?php comprobarReparador();?>>  <a href="./../Correo/Solucion.php?claveSolucion=<?php echo $row['claveProblemas'];?>">Generar Solución</a></td>
-
+                                                <td <?php ?>>  <a href="./../Visualizar/Solucion.php?claveSolucion=<?php echo $row['claveProblemas'];?>">Ver Solucion</a></td>
                                             </tr>
 
                                         <?php } ?>
