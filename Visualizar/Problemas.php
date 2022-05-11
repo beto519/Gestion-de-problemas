@@ -29,7 +29,9 @@ if ($_SESSION['rol'] == 'Admin') {
     Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
     where Problemas.estadoP = '$EstadoProblemas' 
     ";
-}else{
+}else if ($_SESSION['rol'] == 'Empleado') 
+    # code...
+{
 
     $sql = "SELECT * From Problemas
     Inner join Departamentos on Departamentos.clave = Problemas.idDepartamento

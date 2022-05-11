@@ -32,7 +32,15 @@ $empleado = "SELECT * FROM empleados where idEmpleados = $id";
 $codigoProblema = $_GET['claveSolucion'];
 
 
-
+$correoEmisor = "SELECT * FROM Correo";
+$resultado = mysqli_query($connLocalhost, $correoEmisor);
+while ($rowCorreo = mysqli_fetch_assoc($resultado)) {
+	$_SESSION['correoReceptor'] = $rowCorreo['receptor'];
+	$_SESSION['correoEmisor'] = $rowCorreo['emisor'];
+	$_SESSION['correoPassword'] = $rowCorreo['password'];
+	$_SESSION['correoHost'] = $rowCorreo['host'];
+	$_SESSION['correoPasswordReparador'] = $rowCorreo['passwordS'];
+}
 ?>
 
 <?php
@@ -42,9 +50,9 @@ if (isset($_POST['agregar_send'])) {
 	// Procedemos a añadir a la base de datos al usuario SOLO SI NO HAY ERRORES
 	if (!isset($error)) {
 
-		
 
-		
+
+
 		// Preparamos la consulta para guardar el registro en la BD
 		$queryInsertProblema = sprintf(
 			"INSERT INTO Soluciones (clave,nombre,detalles,idProblema,fechaS) VALUES ('%s', '%s', '%s', '%s', '%s')",
@@ -65,16 +73,16 @@ if (isset($_POST['agregar_send'])) {
 			"UPDATE Problemas SET  estadoP='%s' WHERE claveProblemas =%s",
 			mysqli_real_escape_string($connLocalhost, trim($_POST['estadoP'])),
 			mysqli_real_escape_string($connLocalhost, trim($_POST['claveProblemas']))
-	  
-		  );
-	  
-		  // Ejecutamos el query en la BD
-		  mysqli_query($connLocalhost, $queryEditProblema) or trigger_error("El query de edicion de usuarios falló");
+
+		);
+
+		// Ejecutamos el query en la BD
+		mysqli_query($connLocalhost, $queryEditProblema) or trigger_error("El query de edicion de usuarios falló");
 
 
 
-		
-		include("enviar.php");
+
+		include("EnviarSolucion.php");
 	}
 } else {
 }
@@ -156,61 +164,61 @@ if (isset($_POST['agregar_send'])) {
 
 
 					<form action="Solucion.php" method='post'>
-						<form action="enviar.php" method='post'>
+						<form action="EnviarSolucion.php" method='post'>
 							<div class="user-details">
 								<div class="input-box">
-									
+
 									<span class="details">Clave</span>
 									<input type="text" name="clave" placeholder="" value="<?php if (isset($_POST['clave'])) echo $_POST['clave']; ?>" />
 								</div>
 								<div class="input-box">
 									<span class="details">Correo para</span>
-									<input type="email" name="correoDestinatario" placeholder="" value="<?php echo $_SESSION['correoReceptor']; if (isset($_POST['correoDestinatario'])); ?>" />
+									<input type="email" name="correoDestinatario" placeholder="" value="<?php echo $_SESSION['correoEmisor'];
+																										if (isset($_POST['correoDestinatario'])); ?>" />
 								</div>
 								<div class="input-box">
 									<span class="details">Fecha</span>
-									<input type="" name="fechaS" placeholder="<?php echo $fechaActual = date('d-m-Y'); ?>" value="<?php echo $fechaActual = date('d-m-Y');
-																																if (isset($_POST['fechaS'])) echo $_POST['fechaS']; ?>" />
+									<input type="" name="fechaS" placeholder="<?php echo $fechaActual = date('d-m-Y'); ?>" value="<?php echo $fechaActual = date('d-m-Y'); if (isset($_POST['fechaS'])) echo $_POST['fechaS']; ?>" />
 								</div>
-								
-									<div class="input-box">
-										<span class="details">Datos de la Solución</span>
-										<input type="text" name="nombre" placeholder="" value="<?php if (isset($_POST['nombre'])) echo $_POST['nombre']; ?>" />
-									</div>
 
-									<div class="input-box">
-										<span class="details">Detalles</span>
+								<div class="input-box">
+									<span class="details">Datos de la Solución</span>
+									<input type="text" name="nombre" placeholder="" value="<?php if (isset($_POST['nombre'])) echo $_POST['nombre']; ?>" />
+								</div>
 
-										<textarea name="detalles" rows="5" cols="214" value="<?php if (isset($_POST['detalles'])) echo $_POST['detalles']; ?>"></textarea>
-									</div>
-									
-									<div class="input-box">
-										<span class="details">Estado</span>
+								<div class="input-box">
+									<span class="details">Detalles</span>
 
-										<select class="caja-departamento" name="estadoP">
-											<option value="Realizado">Realizado</option>
-										</select>
+									<textarea name="detalles" rows="5" cols="214" value="<?php if (isset($_POST['detalles'])) echo $_POST['detalles']; ?>"></textarea>
+								</div>
 
+								<div class="input-box">
+									<span class="details">Estado</span>
 
-									</div>
-									<div class="input-box">
-										<span class="details">Codigo Problema</span>
-
-										<input readonly type="text" name="claveProblemas" placeholder=" <?php echo $codigoProblema; ?>" value="<?php echo $codigoProblema; ?><?php if (isset($_POST['claveProblemas'])); ?>" />
-									</div>
-									
+									<select class="caja-departamento" name="estadoP">
+										<option value="Realizado">Realizado</option>
+									</select>
 
 
 								</div>
-								<div class="button">
-									<input type="submit" name="agregar_send" value="Enviar Solución" />
+								<div class="input-box">
+									<span class="details">Codigo Problema</span>
+
+									<input readonly type="text" name="claveProblemas" placeholder=" <?php echo $codigoProblema; ?>" value="<?php echo $codigoProblema; ?><?php if (isset($_POST['claveProblemas'])); ?>" />
 								</div>
+
+
 
 							</div>
-						</form>
-					</form>
+							<div class="button">
+								<input type="submit" name="agregar_send" value="Enviar Solución" />
+							</div>
+
 				</div>
+				</form>
+				</form>
 		</div>
+	</div>
 	</div>
 	</main>
 	<footer class="py-4 bg-light mt-auto">

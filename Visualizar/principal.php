@@ -53,7 +53,7 @@ WHERE Problemas.Prioridad ='Alta'
 ";
 
 $resultado = mysqli_query($connLocalhost, $rowsAlta);
-$rowcountAlta=mysqli_num_rows($resultado);
+$rowcountAlta = mysqli_num_rows($resultado);
 
 $rowsBaja = "SELECT * From Problemas 
 Inner join Departamentos on Departamentos.clave = Problemas.idDepartamento
@@ -63,7 +63,7 @@ WHERE Problemas.Prioridad ='Baja'
 ";
 
 $resultado = mysqli_query($connLocalhost, $rowsBaja);
-$rowcountBaja=mysqli_num_rows($resultado);
+$rowcountBaja = mysqli_num_rows($resultado);
 
 $rowsMedia = "SELECT * From Problemas 
 Inner join Departamentos on Departamentos.clave = Problemas.idDepartamento
@@ -73,9 +73,9 @@ WHERE Problemas.Prioridad ='Media'
 ";
 
 $resultado = mysqli_query($connLocalhost, $rowsMedia);
-$rowcountMedia=mysqli_num_rows($resultado);
+$rowcountMedia = mysqli_num_rows($resultado);
 
-$rowsUrgente= "SELECT * From Problemas 
+$rowsUrgente = "SELECT * From Problemas 
 Inner join Departamentos on Departamentos.clave = Problemas.idDepartamento
 Inner join empleados on empleados.numeroEmpleado = Problemas.idEmpleado
 Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
@@ -83,22 +83,20 @@ WHERE Problemas.Prioridad ='Urgente'
 ";
 
 $resultado = mysqli_query($connLocalhost, $rowsUrgente);
-$rowcountUrgente=mysqli_num_rows($resultado);
+$rowcountUrgente = mysqli_num_rows($resultado);
 
-function comprobar(){
+function comprobar()
+{
     if ($_SESSION['rol'] == 'Admin') {
-
-    
     } else {
         echo "hidden";
     }
 }
 
 
-function comprobarReparador(){
+function comprobarReparador()
+{
     if ($_SESSION['rol'] == 'Reparador' or $_SESSION['rol'] == 'Admin') {
-
-    
     } else {
         echo "hidden";
     }
@@ -131,9 +129,9 @@ function comprobarReparador(){
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $nombre; ?><i class="fas fa-user fa-fw"></i></a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="./../Editar/MiPerfil.php">Mi perfil</a>
-					<div class="dropdown-divider"></div>
-					<a <?php comprobar();?> class="dropdown-item" href="./../correo/Configuracion.php">Configuracion correo</a>
+                    <a class="dropdown-item" href="./../Editar/MiPerfil.php">Mi perfil</a>
+                    <div class="dropdown-divider"></div>
+                    <a <?php comprobar(); ?> class="dropdown-item" href="./../correo/Configuracion.php">Configuracion correo</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="./../includes/cerrarSesion.php">Salir</a>
                 </div>
@@ -145,17 +143,17 @@ function comprobarReparador(){
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                    <a class="nav-link" href="Problemas.php">
+                        <a class="nav-link" href="Problemas.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Problemas
                         </a>
 
                         <div class="sb-sidenav-menu-heading"></div>
-                      
-                        <a  class="nav-link" href="departamentos.php">
+
+                        <a class="nav-link" href="departamentos.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Departamentos
-                        </a><a  class="nav-link" href="empleados.php">
+                        </a><a class="nav-link" href="empleados.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Empleados
                         </a>
@@ -168,11 +166,11 @@ function comprobarReparador(){
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
-               
-              
+
+
             </nav>
         </div>
-     
+
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid">
@@ -180,11 +178,11 @@ function comprobarReparador(){
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active">Pagina principal</li>
                     </ol>
-                    <div <?php comprobarReparador();?> class="row">
+                    <div <?php comprobarReparador(); ?> class="row">
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-primary text-white mb-4">
-                                <div class="position-prioridades">  <b><?php echo $rowcountBaja; ?></b></div>
-                          
+                                <div class="position-prioridades"> <b><?php echo $rowcountBaja; ?></b></div>
+
                                 <div class="card-body">Baja </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
                                     <a class="small text-white stretched-link" href="./Prioridades/Baja.php"> Ver Detalles</a>
@@ -194,8 +192,8 @@ function comprobarReparador(){
                         </div>
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-warning text-white mb-4">
-                            <div class="position-prioridades">   <b><?php echo $rowcountMedia; ?></b></div>
-                         
+                                <div class="position-prioridades"> <b><?php echo $rowcountMedia; ?></b></div>
+
                                 <div class="card-body">Media </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
                                     <a class="small text-white stretched-link" href="./Prioridades/Media.php">Ver Detalles</a>
@@ -205,8 +203,8 @@ function comprobarReparador(){
                         </div>
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-success text-white mb-4">
-                            <div class="position-prioridades"> <b><?php echo $rowcountAlta; ?></b> </div>
-                           
+                                <div class="position-prioridades"> <b><?php echo $rowcountAlta; ?></b> </div>
+
                                 <div class="card-body">Alta </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
                                     <a class="small text-white stretched-link" href="./Prioridades/Alta.php">Ver Detalles</a>
@@ -216,7 +214,7 @@ function comprobarReparador(){
                         </div>
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-danger text-white mb-4">
-                            <div class="position-prioridades">   <b><?php echo $rowcountUrgente; ?></b></div>
+                                <div class="position-prioridades"> <b><?php echo $rowcountUrgente; ?></b></div>
                                 <div class="card-body">Urgente</b></div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
                                     <a class="small text-white stretched-link" href="./Prioridades/Urgente.php">Ver Detalles</a>

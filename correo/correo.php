@@ -26,6 +26,7 @@ while ($rowCorreo = mysqli_fetch_assoc($resultado)) {
     $_SESSION['correoEmisor'] = $rowCorreo['emisor'];
     $_SESSION['correoPassword'] = $rowCorreo['password'];
     $_SESSION['correoHost'] = $rowCorreo['host'];
+    $_SESSION['correoPasswordReparador'] = $rowCorreo['passwordS'];
 }
 function comprobar(){
   if ($_SESSION['rol'] == 'Admin') {

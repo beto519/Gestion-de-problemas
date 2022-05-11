@@ -50,11 +50,12 @@ if (isset($_POST['agregar_send'])) {
    
       // Preparamos la consulta para guardar el registro en la BD
 	  $queryEdituser = sprintf(
-		"UPDATE Correo SET receptor='%s', emisor='%s', password='%s', host='%s' WHERE idCorreo =%d",
+		"UPDATE Correo SET receptor='%s', emisor='%s', password='%s', host='%s', passwordS='%s' WHERE idCorreo =%d",
 		mysqli_real_escape_string($connLocalhost, trim($_POST['receptor'])),
 		mysqli_real_escape_string($connLocalhost, trim($_POST['emisor'])),
 		mysqli_real_escape_string($connLocalhost, trim( $_POST['password'])),
 		mysqli_real_escape_string($connLocalhost, trim($_POST['host'])),
+		mysqli_real_escape_string($connLocalhost, trim($_POST['passwordS'])),
 		mysqli_real_escape_string($connLocalhost, trim(1))
 	);
   
@@ -108,7 +109,7 @@ if (isset($_POST['agregar_send'])) {
 				<div class="sb-sidenav-menu">
 					<div class="nav">
 					<a class="nav-link" href="./../correo/correo.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Generar Problema
                         </a>
 
@@ -116,7 +117,7 @@ if (isset($_POST['agregar_send'])) {
 
 						<div class="sb-sidenav-menu-heading"></div>
 						<a class="nav-link" href="./../Visualizar/centrosTrabajo.php">
-							<div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+							<div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
 							Centros de trabajo
 						</a><a class="nav-link" href="./../Visualizar/empleados.php">
 							<div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
@@ -158,6 +159,10 @@ if (isset($_POST['agregar_send'])) {
 		  <div class="input-box">
             <span class="details">Contraseña</span>
             <input type="password" name="password" placeholder="" value="<?php if (isset($_POST['password'])) echo $_POST['password']; ?>" />
+          </div>
+		  <div class="input-box">
+            <span class="details">Contraseña reparador</span>
+            <input type="password" name="passwordS" placeholder="" value="<?php if (isset($_POST['passwordS'])) echo $_POST['passwordS']; ?>" />
           </div>
 
 		  <div class="input-box">
