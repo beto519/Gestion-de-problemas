@@ -48,7 +48,7 @@ function comprobar(){
  $idE=$dato['idEmpleado'];
  $departamentos="SELECT * FROM Departamentos where clave = $idD";
  $centroTrabajo="SELECT * FROM CentrosTrabajo where clave = $idC";
- $empleado="SELECT * FROM empleados where idEmpleados = $idE";
+ $empleado="SELECT * FROM empleados where numeroEmpleado = $idE";
 
 
     

@@ -26,7 +26,12 @@ $queryConsultaClave="SELECT * FROM Soluciones where idProblema = $claveP";
 $con = mysqli_query($connLocalhost, $queryConsultaClave) or trigger_error("El query de inserción de problema falló");
 $dato=mysqli_fetch_assoc($con);
 
+if (!isset($dato)) {
+	header("Location: ./../Visualizar/Problemas.php");
+}else{
 
+	
+}
 
 
 function comprobar()

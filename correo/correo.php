@@ -189,7 +189,7 @@ $duplicado = mysqli_num_rows($dato);
       
           <select class="caja-departamento" name="estadoP">
               <option  value="No realizado">No realizado</option>
-              <option  value="Realizado">Realizado</option>
+           
            </select>
           </div>
          

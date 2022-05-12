@@ -22,15 +22,16 @@ if ($_SESSION['rol'] == 'Admin') {
     Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
     
     ";
-} if($_SESSION['rol'] == 'Reparador'){
+}
+if ($_SESSION['rol'] == 'Reparador') {
     $sql = "SELECT * From Problemas
     Inner join Departamentos on Departamentos.clave = Problemas.idDepartamento
     Inner join empleados on empleados.numeroEmpleado = Problemas.idEmpleado
     Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
     where Problemas.estadoP = '$EstadoProblemas' 
     ";
-}else if ($_SESSION['rol'] == 'Empleado') 
-    # code...
+} else if ($_SESSION['rol'] == 'Empleado')
+# code...
 {
 
     $sql = "SELECT * From Problemas
@@ -39,7 +40,6 @@ if ($_SESSION['rol'] == 'Admin') {
     Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
     where Problemas.idEmpleado = '$codigoE'
     ";
-
 }
 
 
@@ -102,8 +102,21 @@ function comprobarReparador()
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+
+
+
+
+
                 <div class="sb-sidenav-menu">
+
                     <div class="nav">
+                        <a class="nav-link" href="./../Visualizar/Soluciones.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            Soluciones
+                        </a>
+
+                        <div class="sb-sidenav-menu-heading"></div>
+
                         <a class="nav-link" href="departamentos.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Departamentos
@@ -116,10 +129,14 @@ function comprobarReparador()
                             Centros de trabajo
                         </a>
 
+
                         <a class="nav-link" href="./../Reportes/ReportePdf.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Reporte
+                            Reporte 
                         </a>
+
+
+
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
@@ -218,8 +235,8 @@ function comprobarReparador()
                                                 <td><?php echo $row['Prioridad']; ?></td>
                                                 <td><a href="./../Reportes/CadaProblema.php?claveProblemas=<?php echo $row['claveProblemas']; ?>">PDF</a></td>
                                                 <td> <a href="./../Visualizar/Detalles.php?claveProblemas=<?php echo $row['claveProblemas']; ?>">Detalles</a></td>
-                                                <td <?php comprobarReparador();?>>  <a href="./../Correo/Solucion.php?claveSolucion=<?php echo $row['claveProblemas'];?>">Generar Solución</a></td>
-                                                <td <?php ?>>  <a href="./../Visualizar/Solucion.php?claveSolucion=<?php echo $row['claveProblemas'];?>">Ver Solucion</a></td>
+                                                <td <?php comprobarReparador(); ?>> <a href="./../Correo/Solucion.php?claveSolucion=<?php echo $row['claveProblemas']; ?>">Generar Solución</a></td>
+                                                <td <?php ?>> <a href="./../Visualizar/Solucion.php?claveSolucion=<?php echo $row['claveProblemas']; ?>">Ver Solucion</a></td>
                                             </tr>
 
                                         <?php } ?>

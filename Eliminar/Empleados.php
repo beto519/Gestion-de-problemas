@@ -13,12 +13,12 @@ include("./../conexionBD/conexion.php");
 
 $id = $_SESSION['id'];
 
-$nombre = $_SESSION['nombre'];
+$nombre = $_SESSION['nombreE'];
 
 $codigoEmpleado = $_GET['codigoEmpleado'];
 
 
-$querybusquedaFilas = "SELECT * From Problemas where numeroEmpleado = '$codigoEmpleado';
+$querybusquedaFilas = "SELECT * From Problemas where idEmpleado = '$codigoEmpleado';
 ";
 
 $resultado = mysqli_query($connLocalhost, $querybusquedaFilas);
