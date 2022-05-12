@@ -97,7 +97,7 @@ function comprobar(){
 					</ol>
 					<div class="card mb-4">
 						<div class="card-body">
-						<input <?php comprobar();?> class="diseño-boton" type="submit" onclick="location.href='./../correo/correo.php';" name="registrar_send" value="Añadir departamento" />
+						<input <?php comprobar();?> class="diseño-boton" type="submit" onclick="location.href='./../Agregar/Departamento.php';" name="registrar_send" value="Añadir departamento" />
 
 						</div>
 					</div>

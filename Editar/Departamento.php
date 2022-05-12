@@ -13,7 +13,7 @@ include("./../conexionBD/conexion.php");
 
 $id = $_SESSION['id'];
 
-$nombre = $_SESSION['nombre'];
+$nombre = $_SESSION['nombreE'];
 
 $claveDepartamento = $_GET['clave'];
 
