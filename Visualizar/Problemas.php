@@ -110,14 +110,7 @@ function comprobarReparador()
                 <div class="sb-sidenav-menu">
 
                     <div class="nav">
-                        <a class="nav-link" href="./../Visualizar/Soluciones.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Soluciones
-                        </a>
-
-                        <div class="sb-sidenav-menu-heading"></div>
-
-                        <a class="nav-link" href="departamentos.php">
+                    <a class="nav-link" href="departamentos.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Departamentos
                         </a><a class="nav-link" href="empleados.php">
@@ -130,12 +123,14 @@ function comprobarReparador()
                         </a>
 
 
+                      
+
+                        <div class="sb-sidenav-menu-heading"></div>
                         <a class="nav-link" href="./../Reportes/ReportePdf.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Reporte 
+                            Reporte General
                         </a>
-
-
+                    
 
                     </div>
                 </div>

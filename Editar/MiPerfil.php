@@ -43,6 +43,8 @@ $resQueryLogin = mysqli_query($connLocalhost, $buscarEmpleado) or trigger_error(
 $EmpleadoEdicion = mysqli_fetch_assoc($resQueryLogin);
 
 // Definimos variables de sesion en $_SESSION
+
+
 $CodigoBusqueda = $EmpleadoEdicion['numeroEmpleado'];
 $nombreBusqueda = $EmpleadoEdicion['nombreE'];
 $correoBusqueda = $EmpleadoEdicion['correo'];
@@ -125,22 +127,19 @@ if (isset($_POST['editar_send'])) {
       <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
           <div class="nav">
-            <a class="nav-link" href="departamentos.php">
+            <a class="nav-link" href="./../Visualizar/Departamentos.php">
               <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
               Departamentos
-            </a><a class="nav-link" href="empleados.php">
+            </a><a class="nav-link" href="./../Visualizar/empleados.php">
               <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
               Empleados
             </a>
-            <a class="nav-link" href="centrosTrabajo.php">
+            <a class="nav-link" href="./../Visualizar/centrosTrabajo.php">
               <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
               Centros de trabajo
             </a>
 
-            <a class="nav-link" href="./../Reportes/ReportePdf.php">
-              <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-              Reporte
-            </a>
+          
           </div>
 
       </nav>

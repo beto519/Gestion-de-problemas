@@ -114,6 +114,7 @@ function comprobar(){
 											<th>Nombre</th>
 											<th <?php comprobar();?>>Editar</th>
 											<th <?php comprobar();?>>Eliminar</th>
+											<th <?php ?>>Reporte</th>
 
 										</tr>
 									</thead>
@@ -123,6 +124,7 @@ function comprobar(){
 											<th>Nombre</th>
 											<th <?php comprobar();?>>Editar</th>
 											<th <?php comprobar();?>>Eliminar</th>
+											<th <?php ?>>Reporte</th>
 										</tr>
 									</tfoot>
 									<tbody>
@@ -134,7 +136,7 @@ function comprobar(){
 												<td><?php echo $row['nombreC']; ?></td>
 												<td <?php comprobar();?>><a href="./../Editar/centroTrabajo.php?clave=<?php echo $row['clave']; ?>">Editar</a></td>
 												<td <?php comprobar();?> class="eliminar" id="eliminar"><a href="./../Eliminar/CentrosTrabajo.php?clave=<?php echo $row['clave']; ?>">Eliminar</a></td>
-
+												<td <?php ?> class="editar" id="reporte"><a href="./../Reportes/ReportesCentroTrabajo.php?clave=<?php echo $row['clave']; ?>">Reporte</a></td>
 											</tr>
 										<?php } ?>
 									</tbody>
