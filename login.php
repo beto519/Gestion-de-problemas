@@ -19,16 +19,16 @@ include("conexionBD/conexion.php");
 if (isset($_POST['iniciarsesion'])) {
 
   /**  Validamos si las cajas están vacias*/
-  foreach ($_POST as $cajas => $caja) {
-    if ($caja == "") $error[] = "La caja $cajas es obligatoria";
-  }
-  echo '<script type="text/javascript">
-  alert("Ingrese todos los datos");</script>';
+ 
+
+
+
+ 
 
 
   /**  Armamos el query para verificar el numero de empleado*/
   $queryLogin = sprintf(
-    "SELECT idempleados, numeroEmpleado, nombreE,correo,usuario, contraseña,idDepartamentos,estado,rol FROM empleados WHERE numeroEmpleado = '%s'",
+    "SELECT  numeroEmpleado, nombreE,correo,usuario, contraseña,idDepartamentos,estado,rol FROM empleados WHERE numeroEmpleado = '%s'",
     mysqli_real_escape_string($connLocalhost, trim($_POST['numeroEmpleado']))
 
   );
@@ -45,7 +45,7 @@ if (isset($_POST['iniciarsesion'])) {
     $userData = mysqli_fetch_assoc($resQueryLogin);
 
     // Definimos variables de sesion en $_SESSION
-    $_SESSION['id'] = $userData['idempleados'];
+    $_SESSION['id'] = $userData['numeroEmpleado'];
     $_SESSION['numeroEmpleado'] = $userData['numeroEmpleado'];
     $_SESSION['nombreE'] = $userData['nombreE'];
     $_SESSION['correo'] = $userData['correo'];

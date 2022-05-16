@@ -100,14 +100,14 @@ function comprobarReparador()
                 <div class="sb-sidenav-menu">
 
                     <div class="nav">
-                    <a class="nav-link" href="./../departamentos.php">
+                    <a <?php comprobar() ?>  class="nav-link" href="./../departamentos.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Departamentos
-                        </a><a class="nav-link" href="./../empleados.php">
+                        </a><a <?php comprobar() ?>  class="nav-link" href="./../empleados.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Empleados
                         </a>
-                        <a class="nav-link" href="./../centrosTrabajo.php">
+                        <a <?php comprobar() ?>  class="nav-link" href="./../centrosTrabajo.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Centros de trabajo
                         </a>

@@ -27,11 +27,16 @@ $con = mysqli_query($connLocalhost, $queryConsultaClave) or trigger_error("El qu
 $dato=mysqli_fetch_assoc($con);
 
 if (!isset($dato)) {
-	header("Location: ./../Visualizar/Problemas.php");
-}else{
 
-	
+	echo'<script type="text/javascript">
+alert("Lo siento, no hay solución aun.");
+window.location.href="./../Visualizar/Problemas.php";
+</script>';
 }
+
+
+
+
 
 
 function comprobar()
@@ -148,7 +153,7 @@ $empleado = "SELECT * FROM empleados where idEmpleados = $id";
 									<input readonly type="text" name="clave" placeholder="" value="<?php if (isset($dato['clave'])); echo $dato['clave']; ?>" />
 								</div>
 								<div  class="input-box">
-									<span class="details">Correo para</span>
+									<span class="details">Correo de</span>
 									<input readonly type="email" name="correoDestinatario" placeholder="" value="<?php echo $_SESSION['correoReceptor']; ?>" />
 								</div>
 								<div class="input-box">

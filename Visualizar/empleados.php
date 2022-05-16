@@ -10,7 +10,9 @@ $id = $_SESSION['id'];
 
 $nombre = $_SESSION['nombreE'];
 
-
+if ($_SESSION['rol'] != 'Admin') {
+	header("Location: ./../Visualizar/principal.php");
+}
 $sql = "SELECT * From empleados
 Inner join Departamentos on Departamentos.clave = empleados.idDepartamentos";
 
@@ -23,7 +25,23 @@ function comprobar(){
     }
 }
 
+
+
 ?>
+<script type="text/javascript">
+function ConfirmarDelete(){
+var respuesta = confirm("Estas seguro que deseas eliminar?");
+if(respuesta == true){
+
+  return true;
+}else {
+
+  return false;
+}
+
+}
+</script>;
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -147,7 +165,7 @@ function comprobar(){
 												<td><?php echo $row['estado']; ?></td>
 												<td><?php echo $row['rol']; ?></td>
 												<td <?php comprobar();?>><a href="./../Editar/Empleados.php?codigoEmpleado=<?php echo $row['numeroEmpleado']; ?>">Editar</a></td>
-												<td <?php comprobar();?> class="eliminar" id="eliminar"><a href="./../Eliminar/Empleados.php?codigoEmpleado=<?php echo $row['numeroEmpleado']; ?>">Eliminar</a></td>
+												<td <?php comprobar();?> class="eliminar" onclick="return ConfirmarDelete();" id="eliminar"><a href="./../Eliminar/Empleados.php?codigoEmpleado=<?php echo $row['numeroEmpleado']; ?>">Eliminar</a></td>
 											</tr>
 										<?php } ?>
 									</tbody>

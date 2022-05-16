@@ -126,8 +126,9 @@ if (isset($_POST['agregar_send'])) {
 			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
 				<div class="sb-sidenav-menu">
 					<div class="nav">
-						<a class="nav-link" href="#">
-						
+						<a class="nav-link" href="./../Visualizar/Problemas.php">
+						<div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+						Problemas
 
 						</a>
 
@@ -178,7 +179,7 @@ if (isset($_POST['agregar_send'])) {
 								</div>
 								<div class="input-box">
 									<span class="details">Fecha</span>
-									<input type="" name="fechaS" placeholder="<?php echo $fechaActual = date('d-m-Y'); ?>" value="<?php echo $fechaActual = date('d-m-Y'); if (isset($_POST['fechaS'])) echo $_POST['fechaS']; ?>" />
+									<input type="" name="fechaS" placeholder="<?php echo $fechaActual = date('Y-m-d'); ?>" value="<?php echo $fechaActual = date('Y-m-d'); if (isset($_POST['fechaS'])) echo $_POST['fechaS']; ?>" />
 								</div>
 
 								<div class="input-box">

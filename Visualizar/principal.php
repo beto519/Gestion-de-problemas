@@ -34,7 +34,7 @@ if ($_SESSION['rol'] == 'Admin') {
     Inner join Departamentos on Departamentos.clave = Problemas.idDepartamento
     Inner join empleados on empleados.numeroEmpleado = Problemas.idEmpleado
     Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
-    where Problemas.estadoP = '$EstadoProblemas' 
+    where Problemas.estadoP = '$EstadoProblemas'  order by claveProblemas DESC
     ";
 } else {
     $reportes = "SELECT * FROM Problemas";
@@ -42,7 +42,7 @@ if ($_SESSION['rol'] == 'Admin') {
     Inner join Departamentos on Departamentos.clave = Problemas.idDepartamento
     Inner join empleados on empleados.numeroEmpleado = Problemas.idEmpleado
     Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
-    where Problemas.idEmpleado = '$codigoE'";
+    where Problemas.idEmpleado = '$codigoE' order by claveProblemas DESC";
 }
 
 $rowsAlta = "SELECT * From Problemas 
@@ -144,21 +144,21 @@ function comprobarReparador()
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         
-                        <a class="nav-link" href="Problemas.php">
+                        <a  class="nav-link" href="Problemas.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Problemas
                         </a>
 
                         <div class="sb-sidenav-menu-heading"></div>
 
-                        <a class="nav-link" href="departamentos.php">
+                        <a <?php comprobar();?> class="nav-link" href="departamentos.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Departamentos
-                        </a><a class="nav-link" href="empleados.php">
+                        </a><a <?php comprobar();?> class="nav-link" href="empleados.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Empleados
                         </a>
-                        <a class="nav-link" href="centrosTrabajo.php">
+                        <a  <?php comprobar();?> class="nav-link" href="centrosTrabajo.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Centros de trabajo
                         </a>

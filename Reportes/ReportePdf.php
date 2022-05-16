@@ -17,7 +17,7 @@ if ($_SESSION['rol'] == 'Admin') {
     Inner join Departamentos on Departamentos.clave = Problemas.idDepartamento
     Inner join empleados on empleados.numeroEmpleado = Problemas.idEmpleado
     Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
-    ORDER BY claveProblemas ASC
+    ORDER BY claveProblemas desc
     ";
 } elseif ($_SESSION['rol'] == 'Empleado') {
     $reportes = "SELECT * FROM Problemas";
@@ -26,7 +26,7 @@ if ($_SESSION['rol'] == 'Admin') {
     Inner join empleados on empleados.numeroEmpleado = Problemas.idEmpleado
     Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
  
-    where Problemas.idEmpleado = '$codigoE'    ORDER BY claveProblemas ASC";
+    where Problemas.idEmpleado = '$codigoE'    ORDER BY claveProblemas desc";
 }elseif ($_SESSION['rol'] == 'Reparador') {
     $reportes = "SELECT * FROM Problemas";
     $sql = "SELECT * From Problemas
@@ -34,7 +34,7 @@ if ($_SESSION['rol'] == 'Admin') {
     Inner join empleados on empleados.numeroEmpleado = Problemas.idEmpleado
     Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
  
-    where Problemas.estadoP = '$EstadoProblemas'    ORDER BY claveProblemas ASC";
+    where Problemas.estadoP = '$EstadoProblemas'    ORDER BY claveProblemas desc";
 
 }
 

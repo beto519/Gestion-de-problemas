@@ -9,7 +9,9 @@ if (!isset($_SESSION['id'])) {
 $id = $_SESSION['id'];
 
 $nombre = $_SESSION['nombreE'];
-
+if ($_SESSION['rol'] != 'Admin') {
+	header("Location: ./../Visualizar/principal.php");
+}
 
 $sql = "SELECT * FROM CentrosTrabajo";
 
@@ -22,7 +24,24 @@ function comprobar(){
     }
 }
 
+
+
 ?>
+
+<script type="text/javascript">
+function ConfirmarDelete(){
+var respuesta = confirm("Estas seguro que deseas eliminar?");
+if(respuesta == true){
+
+  return true;
+}else {
+
+  return false;
+}
+
+}
+</script>;
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -135,8 +154,8 @@ function comprobar(){
 												<td><?php echo $row['clave']; ?></td>
 												<td><?php echo $row['nombreC']; ?></td>
 												<td <?php comprobar();?>><a href="./../Editar/centroTrabajo.php?clave=<?php echo $row['clave']; ?>">Editar</a></td>
-												<td <?php comprobar();?> class="eliminar" id="eliminar"><a href="./../Eliminar/CentrosTrabajo.php?clave=<?php echo $row['clave']; ?>">Eliminar</a></td>
-												<td <?php ?> class="editar" id="reporte"><a href="./../Reportes/ReportesCentroTrabajo.php?clave=<?php echo $row['clave']; ?>">Reporte</a></td>
+												<td <?php comprobar();?> class="eliminar" id="eliminar"><a href="./../Eliminar/CentrosTrabajo.php?clave=<?php echo $row['clave']; ?>" onclick="return ConfirmarDelete();">Eliminar</a></td>
+												<td <?php ?> class="editar"   id="reporte"><a href="./../Reportes/ReportesCentroTrabajo.php?clave=<?php echo $row['clave']; ?>"  >Reporte</a></td>
 											</tr>
 										<?php } ?>
 									</tbody>

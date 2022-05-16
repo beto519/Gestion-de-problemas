@@ -18,7 +18,7 @@ $EstadoProblemas = "Realizado";
     Inner join empleados on empleados.numeroEmpleado = Problemas.idEmpleado
     Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
     where Problemas.Prioridad ='Baja'
-    ORDER BY claveProblemas ASC
+    ORDER BY claveProblemas desc
     ";
 
 
@@ -110,6 +110,7 @@ ob_start();
         </table>
 
     </div>
+  
 </body>
 
 </html>

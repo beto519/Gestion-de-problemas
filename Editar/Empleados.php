@@ -58,8 +58,8 @@ if (isset($_POST['editar_send'])) {
     $pass_cifrada = password_hash($pass, PASSWORD_DEFAULT);
     // Preparamos la consulta para guardar el registro en la BD
     $queryEdituser = sprintf(
-      "UPDATE empleados SET numeroEmpleado='%s', nombreE='%s', correo='%s', usuario='%s', contraseña='%s', idDepartamentos='%s' , estado='%s', rol='%s' WHERE numeroEmpleado =%d",
-      mysqli_real_escape_string($connLocalhost, trim($_POST['numeroEmpleado'])),
+      "UPDATE empleados SET  nombreE='%s', correo='%s', usuario='%s', contraseña='%s', idDepartamentos='%s' , estado='%s', rol='%s' WHERE numeroEmpleado =%d",
+  
       mysqli_real_escape_string($connLocalhost, trim($_POST['nombreE'])),
       mysqli_real_escape_string($connLocalhost, trim($_POST['correo'])),
       mysqli_real_escape_string($connLocalhost, trim($_POST['usuario'])),

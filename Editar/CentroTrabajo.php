@@ -28,6 +28,9 @@ function comprobar(){
 
 
 
+
+
+
 $buscarCentroTrabajo = "SELECT * FROM CentrosTrabajo where clave ='$claveCentoTrabajo'";
 $resQueryLogin = mysqli_query($connLocalhost, $buscarCentroTrabajo) or trigger_error("El query de login de usuario falló");
 // Hacemos un fetch del recordset
@@ -43,8 +46,8 @@ if (isset($_POST['editar_send'])) {
     if (!isset($error)) {
         // Preparamos la consulta para guardar el registro en la BD
         $queryEdituser = sprintf(
-            "UPDATE CentrosTrabajo SET clave='%s', nombreC='%s' WHERE clave =%d",
-            mysqli_real_escape_string($connLocalhost, trim($_POST['clave'])),
+            "UPDATE CentrosTrabajo SET  nombreC='%s' WHERE clave =%d",
+          
             mysqli_real_escape_string($connLocalhost, trim($_POST['nombreC'])),
             mysqli_real_escape_string($connLocalhost, trim($_POST['clave']))
         );
@@ -139,8 +142,8 @@ if (isset($_POST['editar_send'])) {
 
                         <div class="user-details">
                             <div class="input-box">
-                                <span class="details">Clave</span>
-                                <input disabled type="text" name="clave" placeholder=" <?php echo $CodigoBusqueda; ?>" value="<?php echo $CodigoBusqueda; ?><?php if (isset($_POST['clave'])) echo $_POST['clave']; ?>" />
+                                <span   class="details">Clave</span>
+                                <input readonly type="text" name="clave" placeholder=" <?php echo $CodigoBusqueda; ?>" value="<?php echo $CodigoBusqueda; ?><?php if (isset($_POST['clave'])) echo $_POST['clave']; ?>" />
                             </div>
                             <div class="input-box">
                                 <span class="details">Nombre</span>

@@ -138,8 +138,12 @@ if (isset($_POST['editar_send'])) {
                         <div class="user-details">
                             <div class="input-box">
                                 <span class="details">Clave</span>
-                                <input type="text" name="clave" placeholder=" <?php echo $CodigoBusqueda; ?>" value="<?php echo $CodigoBusqueda; ?><?php if (isset($_POST['clave'])) echo $_POST['clave']; ?>" />
+                               
+                                <input readonly type="text" name="clave" placeholder=" <?php echo $CodigoBusqueda; ?>" value="<?php echo $CodigoBusqueda; ?><?php if (isset($_POST['clave'])) echo $_POST['clave']; ?>" />
                             </div>
+                            
+                               
+                                
                             <div class="input-box">
                                 <span class="details">Nombre</span>
                                 <input type="text" name="nombreD" placeholder="" value="<?php echo $nombreBusqueda; ?><?php if (isset($_POST['nombreD'])) echo $_POST['nombreD']; ?>" />

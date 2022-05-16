@@ -31,8 +31,8 @@ if (isset($_POST['agregar_send'])) {
    
       // Preparamos la consulta para guardar el registro en la BD
       $queryInserDepartamento = sprintf(
-        "INSERT INTO Departamentos (clave,nombreD) VALUES ('%s', '%s')",
-        mysqli_real_escape_string($connLocalhost, trim($_POST['clave'])),
+        "INSERT INTO Departamentos (nombreD) VALUES ('%s')",
+     
         mysqli_real_escape_string($connLocalhost, trim($_POST['nombreD']))
   
       );
@@ -124,12 +124,9 @@ if (isset($_POST['agregar_send'])) {
             <form action="Departamento.php" method='post'>
 
         <div class="user-details">
+          
           <div class="input-box">
-            <span class="details">Clave</span>
-            <input type="text" name="clave" placeholder="Ingrese la clave" value="<?php if (isset($_POST['clave'])) echo $_POST['clave']; ?>" />
-          </div>
-          <div class="input-box">
-            <span class="details">Nombre del centro de trabajo</span>
+            <span class="details">Nombre del departamento</span>
             <input type="text" name="nombreD" placeholder="" value="<?php if (isset($_POST['nombreD'])) echo $_POST['nombreD']; ?>" />
           </div>
         

@@ -64,15 +64,12 @@ if (isset($_POST['editar_send'])) {
     $pass_cifrada = password_hash($pass, PASSWORD_DEFAULT);
     // Preparamos la consulta para guardar el registro en la BD
     $queryEdituser = sprintf(
-      "UPDATE empleados SET numeroEmpleado='%s', nombreE='%s', correo='%s', usuario='%s', contraseña='%s', idDepartamentos='%s' , estado='%s', rol='%s' WHERE numeroEmpleado =%d",
+      "UPDATE empleados SET numeroEmpleado='%s', nombreE='%s', correo='%s', usuario='%s', contraseña='%s' WHERE numeroEmpleado =%d",
       mysqli_real_escape_string($connLocalhost, trim($_POST['numeroEmpleado'])),
       mysqli_real_escape_string($connLocalhost, trim($_POST['nombreE'])),
       mysqli_real_escape_string($connLocalhost, trim($_POST['correo'])),
       mysqli_real_escape_string($connLocalhost, trim($_POST['usuario'])),
       mysqli_real_escape_string($connLocalhost, trim($pass_cifrada)),
-      mysqli_real_escape_string($connLocalhost, trim($idDepartamentos)),
-      mysqli_real_escape_string($connLocalhost, trim($_POST['estado'])),
-      mysqli_real_escape_string($connLocalhost, trim($_POST['tipoUsuario'])),
       mysqli_real_escape_string($connLocalhost, trim($_POST['numeroEmpleado']))
 
     );
@@ -127,14 +124,20 @@ if (isset($_POST['editar_send'])) {
       <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
           <div class="nav">
-            <a class="nav-link" href="./../Visualizar/Departamentos.php">
+
+          <a class="nav-link" href="./../Visualizar/Problemas.php">
+              <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+              Problemas
+            </a>
+
+            <a <?php comprobar();?> class="nav-link" href="./../Visualizar/Departamentos.php">
               <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
               Departamentos
-            </a><a class="nav-link" href="./../Visualizar/empleados.php">
+            </a><a <?php comprobar();?> class="nav-link" href="./../Visualizar/empleados.php">
               <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
               Empleados
             </a>
-            <a class="nav-link" href="./../Visualizar/centrosTrabajo.php">
+            <a <?php comprobar();?> class="nav-link" href="./../Visualizar/centrosTrabajo.php">
               <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
               Centros de trabajo
             </a>
@@ -150,18 +153,18 @@ if (isset($_POST['editar_send'])) {
           <h1 class="mt-4">Editar Empleado</h1>
           <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a href="./../Visualizar/principal.php">Principal</a></li>
-            <li class="breadcrumb-item"><a href="./../Visualizar/empleados.php">Empleados</a></li>
+           
             <li class="breadcrumb-item active"><a href="">Editar Empleados</a></li>
           </ol>
 
 
 
-          <form action="Empleados.php" method='post'>
+          <form action="MiPerfil.php" method='post'>
 
             <div class="user-details">
               <div class="input-box">
                 <span class="details">Numero de empleado</span>
-                <input type="text" name="numeroEmpleado" placeholder=" <?php echo $codigoEmpleado; ?>" value="<?php echo $codigoEmpleado; ?><?php if (isset($_POST['numeroEmpleado'])) echo $_POST['numeroEmpleado']; ?>" />
+                <input readonly type="text" name="numeroEmpleado" placeholder=" <?php echo $codigoEmpleado; ?>" value="<?php echo $codigoEmpleado; ?><?php if (isset($_POST['numeroEmpleado'])) echo $_POST['numeroEmpleado']; ?>" />
               </div>
               <div class="input-box">
                 <span class="details">Nombre</span>
@@ -182,46 +185,7 @@ if (isset($_POST['editar_send'])) {
                 <span class="details">Contraseña</span>
                 <input type="password" name="contraseña" placeholder="Ingresa su contraseña" value="<?php if (isset($_POST['contraseña'])) echo $_POST['contraseña']; ?>" />
               </div>
-              <div class="input-box">
-                <span class="details">Departamento</span>
-
-                <select class="caja-departamento" name="departamento">
-                  <?php
-                  $resultado = mysqli_query($connLocalhost, $departamentos);
-                  while ($row = mysqli_fetch_assoc($resultado)) {
-                    echo '<option  value=' . $row["clave"] . '>' . $row["nombreD"] . '</option>';
-
-                    #echo "<option value=\"{$row['idDepartamentos']}\">{$row['nombre']}</option>"; 
-                  }
-
-                  ?>
-                </select>
-
-              </div>
-
-              <div class="input-box">
-                <span class="details">Estado</span>
-
-                <select class="caja-departamento" name="estado">
-
-                  <option value="Activo">Activo</option>
-                  <option value="Baja">Baja</option>
-                  <option value="Reingreso">Reingreso</option>
-                </select>
-
-              </div>
-              <div class="input-box">
-                <span class="details">Tipo de usuario</span>
-
-                <select class="caja-departamento" name="tipoUsuario">
-                  <option value="Empleado">Empleado</option>
-                  <option <?php ComprobarReparador(); ?> value="Reparador">Reparador</option>
-                  <option <?php comprobar(); ?> value="Admin">Admin</option>
-
-
-                </select>
-
-              </div>
+              
 
             </div>
             <div class="button">

@@ -27,25 +27,11 @@ $nombre = $_SESSION['nombreE'];
 if (isset($_POST['agregar_send'])) {
 
 
-	$clave = $_POST['clave'];
-	$queryConsultaClave="SELECT * FROM CentrosTrabajo where clave = $clave";
-   $dato = mysqli_query($connLocalhost, $queryConsultaClave) or trigger_error("El query de inserción de problema falló");
-  /**
-  * 
-  */
-  $duplicado = mysqli_num_rows($dato);
- 
-	  // Procedemos a añadir a la base de datos al usuario SOLO SI NO HAY ERRORES
-	 
-	 /**
-	  *Verificación que la clave del problema no exista. 
-	  */
-	  if ($duplicado == 0) {
+	
 
       // Preparamos la consulta para guardar el registro en la BD
       $queryInserCentro = sprintf(
-        "INSERT INTO CentrosTrabajo (clave,nombreC) VALUES ('%s', '%s')",
-        mysqli_real_escape_string($connLocalhost, trim($_POST['clave'])),
+        "INSERT INTO CentrosTrabajo (nombreC) VALUES ('%s')",
         mysqli_real_escape_string($connLocalhost, trim($_POST['nombreC']))
   
       );
@@ -57,12 +43,7 @@ if (isset($_POST['agregar_send'])) {
   
       header("Location: ./../Visualizar/centrosTrabajo.php"); 
   
-	} 
-	else {
-		$error ="Error. Ya existe un centro de trabajo con esa clave.";
-		echo "<script> alert('".$error."'); </script>";
-
-	}
+	
 }
 ?>
 
@@ -141,10 +122,7 @@ if (isset($_POST['agregar_send'])) {
             <form action="centroTrabajo.php" method='post'>
 
         <div class="user-details">
-          <div class="input-box">
-            <span class="details">Clave</span>
-            <input type="text" name="clave" placeholder="Ingrese la clave" value="<?php if (isset($_POST['clave'])) echo $_POST['clave']; ?>" />
-          </div>
+        
           <div class="input-box">
             <span class="details">Nombre del centro de trabajo</span>
             <input type="text" name="nombreC" placeholder="Ingresa el nombre del centro de trabajo" value="<?php if (isset($_POST['nombreC'])) echo $_POST['nombreC']; ?>" />

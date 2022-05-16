@@ -24,16 +24,25 @@ $querybusquedaFilas = "SELECT * From Problemas where idEmpleado = '$codigoEmplea
 $resultado = mysqli_query($connLocalhost, $querybusquedaFilas);
 $rowCount = mysqli_num_rows($resultado);
 if ($rowCount != 0) {
-  $error = "El dato ya se encuentra en un problema";
-  echo "<script> alert('" . $error . "'); </script>";
 
-  header("Location: ./../Visualizar/empleados.php");
+
+
+	echo'<script type="text/javascript">
+alert("El dato ya se encuentra en un problema.");
+window.location.href="./../Visualizar/empleados.php";
+</script>';
+  
+
 } else {
 
   $borrarEmpleados = "Delete FROM empleados where numeroEmpleado ='$codigoEmpleado'";
   $resQueryLogin = mysqli_query($connLocalhost, $borrarEmpleados) or trigger_error("El query de login de usuario falló");
+	
+  echo'<script type="text/javascript">
+alert("Eliminación exitosa");
+window.location.href="./../Visualizar/empleados.php";
+</script>';
 
-  header("Location: ./../Visualizar/empleados.php");
 }
 
 

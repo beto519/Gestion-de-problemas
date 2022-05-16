@@ -18,7 +18,7 @@ $EstadoProblemas = "Realizado";
     Inner join empleados on empleados.numeroEmpleado = Problemas.idEmpleado
     Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
     where Problemas.Prioridad ='Alta'
-    ORDER BY claveProblemas ASC
+    ORDER BY claveProblemas desc
     ";
 
 

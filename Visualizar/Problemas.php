@@ -110,27 +110,46 @@ function comprobarReparador()
                 <div class="sb-sidenav-menu">
 
                     <div class="nav">
-                    <a class="nav-link" href="departamentos.php">
+                    <a <?php comprobar();?> class="nav-link" href="departamentos.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Departamentos
-                        </a><a class="nav-link" href="empleados.php">
+                        </a><a <?php comprobar();?> class="nav-link" href="empleados.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Empleados
                         </a>
-                        <a class="nav-link" href="centrosTrabajo.php">
+                        <a <?php comprobar();?> class="nav-link" href="centrosTrabajo.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Centros de trabajo
                         </a>
-
-
-                      
-
-                        <div class="sb-sidenav-menu-heading"></div>
                         <a class="nav-link" href="./../Reportes/ReportePdf.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Reporte General
                         </a>
-                    
+                      
+
+                      
+
+                        <div class="sb-sidenav-menu-heading"></div>
+                        <a <?php ComprobarReparador();?> class="nav-link" >
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                          Filtro
+                        </a>
+                        <a <?php ComprobarReparador();?> class="nav-link" href="./../Buscar/Departamento.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            Filtrar Departamentos
+                        </a>
+                        <a <?php ComprobarReparador();?> class="nav-link" href="./../Buscar/CentroTrabajo.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            Filtrar Centros Trabajo
+                        </a>
+                        <a <?php ComprobarReparador();?> class="nav-link" href="./../Buscar/Empleado.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            Filtrar Empleados
+                        </a>
+                        <a <?php ComprobarReparador();?> class="nav-link" href="./../Buscar/Fecha.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            Filtrar Fecha
+                        </a>
 
                     </div>
                 </div>
@@ -147,6 +166,7 @@ function comprobarReparador()
                     </ol>
                     <div class="card mb-4">
                         <div class="card-body">
+                     
                             <div class="position-Registrar">
                                 <input class="diseño-boton" type="submit" onclick="location.href='./../correo/correo.php';" name="registrar_send" value="Registrar problema" />
                             </div>
@@ -260,11 +280,12 @@ function comprobarReparador()
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="./../js/scripts.js"></script>
+    <script src="./../demo/datatables-demo.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
 
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
-    <script src="./../demo/datatables-demo.js"></script>
+  
 </body>
 
 </html>

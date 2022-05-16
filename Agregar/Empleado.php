@@ -25,8 +25,8 @@ if (isset($_POST['registrar_send'])) {
     $pass_cifrada = password_hash($pass, PASSWORD_DEFAULT);
     // Preparamos la consulta para guardar el registro en la BD
     $queryInsertUser = sprintf(
-      "INSERT INTO empleados (numeroEmpleado,nombreE,correo,usuario,contraseña,idDepartamentos,estado,rol) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')",
-      mysqli_real_escape_string($connLocalhost, trim($_POST['numeroEmpleado'])),
+      "INSERT INTO empleados (nombreE,correo,usuario,contraseña,idDepartamentos,estado,rol) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+    
       mysqli_real_escape_string($connLocalhost, trim($_POST['nombreE'])),
       mysqli_real_escape_string($connLocalhost, trim($_POST['correo'])),
       mysqli_real_escape_string($connLocalhost, trim($_POST['usuario'])),
@@ -136,10 +136,6 @@ function comprobar(){
          
          
         <div class="user-details">
-          <div class="input-box">
-            <span class="details">Numero de empleado</span>
-            <input type="text" name="numeroEmpleado" placeholder="000" value="000<?php if (isset($_POST['numeroEmpleado'])) echo $_POST['numeroEmpleado']; ?>" />
-          </div>
           <div class="input-box">
             <span class="details">Nombre</span>
             <input type="text" name="nombreE" placeholder="Ingresa tu nombre" value="<?php if (isset($_POST['nombreE'])) echo $_POST['nombreE']; ?>" />

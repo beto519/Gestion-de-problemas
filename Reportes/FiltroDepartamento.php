@@ -1,36 +1,34 @@
 <?php
 //Retomamos la sesión
+
+use FontLib\Table\Type\post;
+
 session_start();
 //Comprobamos que la sesión ya ha sido realizada, si no lo llevara al login
 if (!isset($_SESSION['id'])) {
-    header("Location: ./../../login.php");
+    header("Location: ./../login.php");
 }
 
 $nombre = $_SESSION['nombreE'];
 //Se incluye la conexión a la base de datos y se realiza una sentencia sql
-include("./../../conexionBD/conexion.php");
+include("./../conexionBD/conexion.php");
 $codigoE = $_SESSION['numeroEmpleado'];
 $EstadoProblemas = "No realizado";
 $reportes = "SELECT * FROM Problemas";
 
+$departamento = $_POST['departamento'];
 
 
-if ($_SESSION['rol'] == 'Admin') {
+
     $sql = "SELECT * From Problemas
     Inner join Departamentos on Departamentos.clave = Problemas.idDepartamento
     Inner join empleados on empleados.numeroEmpleado = Problemas.idEmpleado
     Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
-    WHERE Problemas.Prioridad = 'Alta'
+    where Problemas.idDepartamento = '$departamento' 
     ";
-}
-if ($_SESSION['rol'] == 'Reparador') {
-    $sql = "SELECT * From Problemas
-    Inner join Departamentos on Departamentos.clave = Problemas.idDepartamento
-    Inner join empleados on empleados.numeroEmpleado = Problemas.idEmpleado
-    Inner join CentrosTrabajo on CentrosTrabajo.clave = Problemas.idCentroTrabajo
-    WHERE Problemas.Prioridad = 'Alta'
-    ";
-} 
+
+
+  
 
 
 
@@ -39,21 +37,7 @@ if ($_SESSION['rol'] == 'Reparador') {
 
 
 
-function comprobar()
-{
-    if ($_SESSION['rol'] == 'Admin') {
-    } else {
-        echo "hidden";
-    }
-}
 
-function comprobarReparador()
-{
-    if ($_SESSION['rol'] == 'Admin' or $_SESSION['rol'] == 'Reparador') {
-    } else {
-        echo "hidden";
-    }
-}
 
 ?>
 
@@ -66,25 +50,25 @@ function comprobarReparador()
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Prioridad alta</title>
-    <link href="./../../css/styles.css" rel="stylesheet" />
-    <link rel="stylesheet" href="./../../css/position.css">
+    <title>Problemas</title>
+    <link href="./../css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./../css/position.css">
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
 </head>
 
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <a class="navbar-brand" href="./../principal.php">Gestión de problemas</a><button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
+        <a class="navbar-brand" href="principal.php">Gestión de problemas</a><button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
         <ul class="navbar-nav ml-auto mr-0 mr-md-3 my-2 my-md-0">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $nombre; ?><i class="fas fa-user fa-fw"></i></a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="./../../Editar/MiPerfil.php">Mi perfil</a>
+                    <a class="dropdown-item" href="./../Editar/MiPerfil.php">Mi perfil</a>
                     <div class="dropdown-divider"></div>
-                    <a <?php comprobar(); ?> class="dropdown-item" href="./../../correo/Configuracion.php">Configuracion correo</a>
+                    <a <?php comprobar(); ?> class="dropdown-item" href="./../correo/Configuracion.php">Configuracion correo</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="./../../includes/cerrarSesion.php">Salir</a>
+                    <a class="dropdown-item" href="./../includes/cerrarSesion.php">Salir</a>
                 </div>
             </li>
         </ul>
@@ -100,14 +84,14 @@ function comprobarReparador()
                 <div class="sb-sidenav-menu">
 
                     <div class="nav">
-                    <a <?php comprobar() ?> class="nav-link" href="./../departamentos.php">
+                    <a <?php comprobar();?> class="nav-link" href="departamentos.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Departamentos
-                        </a><a <?php comprobar() ?>  class="nav-link" href="./../empleados.php">
+                        </a><a <?php comprobar();?> class="nav-link" href="empleados.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Empleados
                         </a>
-                        <a <?php comprobar() ?>  class="nav-link" href="./../centrosTrabajo.php">
+                        <a <?php comprobar();?> class="nav-link" href="centrosTrabajo.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             Centros de trabajo
                         </a>
@@ -116,11 +100,26 @@ function comprobarReparador()
                       
 
                         <div class="sb-sidenav-menu-heading"></div>
-                        <a class="nav-link" href="./../../Reportes/alta.php">
+                        <a class="nav-link" href="./../Reportes/ReportePdf.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Reporte Prioridad Alta
+                            Reporte General
                         </a>
-                    
+                        <a class="nav-link" href="./../Buscar/Problemas.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            Filtrar Departamentos
+                        </a>
+                        <a class="nav-link" href="./../Buscar/Problemas.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            Filtrar Centros Trabajo
+                        </a>
+                        <a class="nav-link" href="./../Buscar/Problemas.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            Filtrar Empleados
+                        </a>
+                        <a class="nav-link" href="./../Buscar/Problemas.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            Filtrar Fecha
+                        </a>
 
                     </div>
                 </div>
@@ -131,14 +130,15 @@ function comprobarReparador()
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid">
-                    <h1 class="mt-4">Prioridad Alta</h1>
+                    <h1 class="mt-4">Lista de problemas</h1>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active">Problemas</li>
                     </ol>
                     <div class="card mb-4">
                         <div class="card-body">
+                     
                             <div class="position-Registrar">
-                                <input class="diseño-boton" type="submit" onclick="location.href='./../../correo/correo.php';" name="registrar_send" value="Registrar problema" />
+                                <input class="diseño-boton" type="submit" onclick="location.href='./../correo/correo.php';" name="registrar_send" value="Registrar problema" />
                             </div>
 
                         </div>
@@ -177,7 +177,7 @@ function comprobarReparador()
                                             <th>Prioridad</th>
                                             <th>Reporte</th>
                                             <th>Ver detalles</th>
-                                            <th <?php comprobarReparador(); ?>>Solución</th>
+                                            <th <?php  ?>>Solución</th>
                                             <th <?php  ?>>Ver Solucion</th>
                                         </tr>
                                     </thead>
@@ -195,7 +195,7 @@ function comprobarReparador()
                                             <th>Prioridad</th>
                                             <th>Reporte</th>
                                             <th>Ver detalles</th>
-                                            <th <?php comprobarReparador(); ?>>Solución</th>
+                                            <th <?php  ?>>Solución</th>
                                             <th <?php  ?>>Ver Solucion</th>
 
                                         </tr>
@@ -218,10 +218,10 @@ function comprobarReparador()
                                                 <td><?php echo $row['nombreC']; ?></td>
                                                 <td><?php echo $row['nombreE']; ?></td>
                                                 <td><?php echo $row['Prioridad']; ?></td>
-                                                <td><a href="./../../Reportes/CadaProblema.php?claveProblemas=<?php echo $row['claveProblemas']; ?>">PDF</a></td>
-                                                <td> <a href="./../../Visualizar/Detalles.php?claveProblemas=<?php echo $row['claveProblemas']; ?>">Detalles</a></td>
-                                                <td <?php comprobarReparador(); ?>> <a href="./../../Correo/Solucion.php?claveSolucion=<?php echo $row['claveProblemas']; ?>">Generar Solución</a></td>
-                                                <td <?php ?>> <a href="./../../Visualizar/Solucion.php?claveSolucion=<?php echo $row['claveProblemas']; ?>">Ver Solucion</a></td>
+                                                <td><a href="./../Reportes/CadaProblema.php?claveProblemas=<?php echo $row['claveProblemas']; ?>">PDF</a></td>
+                                                <td> <a href="./../Visualizar/Detalles.php?claveProblemas=<?php echo $row['claveProblemas']; ?>">Detalles</a></td>
+                                                <td <?php  ?>> <a href="./../Correo/Solucion.php?claveSolucion=<?php echo $row['claveProblemas']; ?>">Generar Solución</a></td>
+                                                <td <?php ?>> <a href="./../Visualizar/Solucion.php?claveSolucion=<?php echo $row['claveProblemas']; ?>">Ver Solucion</a></td>
                                             </tr>
 
                                         <?php } ?>
