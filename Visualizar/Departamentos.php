@@ -113,7 +113,7 @@ if(respuesta == true){
 					</ol>
 					<div class="card mb-4">
 						<div class="card-body">
-						<input <?php comprobar();?> class="diseño-boton" type="submit" onclick="location.href='./../Agregar/Departamento.php';" name="registrar_send" value="Añadir departamento" />
+						<input style="margin-left: 1385px;" <?php comprobar();?> class="diseño-boton" type="submit" onclick="location.href='./../Agregar/Departamento.php';" name="registrar_send" value="Agregar departamento" />
 
 						</div>
 					</div>

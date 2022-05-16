@@ -29,7 +29,7 @@ function comprobar()
 }
 function comprobarReparador()
 {
-  if ($_SESSION['rol'] == 'Reparador' or $_SESSION['rol'] == 'Reparador' ) {
+  if ($_SESSION['rol'] == 'Reparador' or $_SESSION['rol'] == 'Admin' ) {
   } else {
     echo "hidden";
   }
@@ -58,7 +58,7 @@ include("./../Reportes/FiltroEmpleado.php");
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  <title>Buscar Centro </title>
+  <title>Buscar empleados </title>
   <link href="./../css/styles.css" rel="stylesheet" />
   <link href="./../css/styleEditar.css" rel="stylesheet" />
 
@@ -95,17 +95,7 @@ include("./../Reportes/FiltroEmpleado.php");
 
 
             <div class="sb-sidenav-menu-heading"></div>
-            <a <?php comprobar(); ?> class="nav-link" href="./../Visualizar/centrosTrabajo.php">
-              <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-              Centros de trabajo
-            </a><a <?php comprobar(); ?> class="nav-link" href="./../Visualizar/empleados.php">
-              <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-              Empleados
-            </a>
-            <a <?php comprobar(); ?> class="nav-link" href="./../Visualizar/Departamentos.php">
-              <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-              Departamentos
-            </a>
+          
             <a <?php ComprobarReparador();?> class="nav-link" >
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                           Filtro
@@ -134,10 +124,10 @@ include("./../Reportes/FiltroEmpleado.php");
     <div id="layoutSidenav_content">
       <main>
         <div class="container-fluid">
-          <h1 class="mt-4">Buscar Problema</h1>
+          <h1 class="mt-4">Buscar por empleado</h1>
           <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item"><a href="./../Visualizar/principal.php">Principal</a></li>
-            <li class="breadcrumb-item"><a href="./../Visualizar/principal.php">Problemas</a></li>
+            <li class="breadcrumb-item"><a href="./../Visualizar/Problemas.php">Problemas</a></li>
             <li class="breadcrumb-item active"><a href="">Buscar</a></li>
           </ol>
 

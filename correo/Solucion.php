@@ -41,51 +41,57 @@ while ($rowCorreo = mysqli_fetch_assoc($resultado)) {
 	$_SESSION['correoHost'] = $rowCorreo['host'];
 	$_SESSION['correoPasswordReparador'] = $rowCorreo['passwordS'];
 }
+
+
+
+
+
+	if (isset($_POST['agregar_send'])) {
+
+		// Procedemos a añadir a la base de datos al usuario SOLO SI NO HAY ERRORES
+		if (!isset($error)) {
+	
+	
+	
+	
+			// Preparamos la consulta para guardar el registro en la BD
+			$queryInsertProblema = sprintf(
+				"INSERT INTO Soluciones (nombre,detalles,idProblema,fechaS) VALUES ( '%s', '%s', '%s', '%s')",
+			
+				mysqli_real_escape_string($connLocalhost, trim($_POST['nombre'])),
+				mysqli_real_escape_string($connLocalhost, trim($_POST['detalles'])),
+				mysqli_real_escape_string($connLocalhost, trim($_POST['claveProblemas'])),
+				mysqli_real_escape_string($connLocalhost, trim($_POST['fechaS']))
+	
+			);
+	
+	
+			// Ejecutamos el query en la BD
+			mysqli_query($connLocalhost, $queryInsertProblema) or trigger_error("El query de inserción de problema falló");
+	
+	
+			$queryEditProblema = sprintf(
+				"UPDATE Problemas SET  estadoP='%s' WHERE claveProblemas =%s",
+				mysqli_real_escape_string($connLocalhost, trim($_POST['estadoP'])),
+				mysqli_real_escape_string($connLocalhost, trim($_POST['claveProblemas']))
+	
+			);
+	
+			// Ejecutamos el query en la BD
+			mysqli_query($connLocalhost, $queryEditProblema) or trigger_error("El query de edicion de usuarios falló");
+	
+	
+	
+	
+			include("EnviarSolucion.php");
+		}
+	}
+
 ?>
 
 <?php
 
-if (isset($_POST['agregar_send'])) {
 
-	// Procedemos a añadir a la base de datos al usuario SOLO SI NO HAY ERRORES
-	if (!isset($error)) {
-
-
-
-
-		// Preparamos la consulta para guardar el registro en la BD
-		$queryInsertProblema = sprintf(
-			"INSERT INTO Soluciones (clave,nombre,detalles,idProblema,fechaS) VALUES ('%s', '%s', '%s', '%s', '%s')",
-			mysqli_real_escape_string($connLocalhost, trim($_POST['clave'])),
-			mysqli_real_escape_string($connLocalhost, trim($_POST['nombre'])),
-			mysqli_real_escape_string($connLocalhost, trim($_POST['detalles'])),
-			mysqli_real_escape_string($connLocalhost, trim($_POST['claveProblemas'])),
-			mysqli_real_escape_string($connLocalhost, trim($_POST['fechaS']))
-
-		);
-
-
-		// Ejecutamos el query en la BD
-		mysqli_query($connLocalhost, $queryInsertProblema) or trigger_error("El query de inserción de problema falló");
-
-
-		$queryEditProblema = sprintf(
-			"UPDATE Problemas SET  estadoP='%s' WHERE claveProblemas =%s",
-			mysqli_real_escape_string($connLocalhost, trim($_POST['estadoP'])),
-			mysqli_real_escape_string($connLocalhost, trim($_POST['claveProblemas']))
-
-		);
-
-		// Ejecutamos el query en la BD
-		mysqli_query($connLocalhost, $queryEditProblema) or trigger_error("El query de edicion de usuarios falló");
-
-
-
-
-		include("EnviarSolucion.php");
-	}
-} else {
-}
 
 ?>
 
@@ -167,11 +173,7 @@ if (isset($_POST['agregar_send'])) {
 					<form action="Solucion.php" method='post'>
 						<form action="EnviarSolucion.php" method='post'>
 							<div class="user-details">
-								<div class="input-box">
-
-									<span class="details">Clave</span>
-									<input type="text" name="clave" placeholder="" value="<?php if (isset($_POST['clave'])) echo $_POST['clave']; ?>" />
-								</div>
+								
 								<div class="input-box">
 									<span class="details">Correo para</span>
 									<input type="email" name="correoDestinatario" placeholder="" value="<?php echo $_SESSION['correoEmisor'];
@@ -193,10 +195,10 @@ if (isset($_POST['agregar_send'])) {
 									<textarea name="detalles" rows="5" cols="214" value="<?php if (isset($_POST['detalles'])) echo $_POST['detalles']; ?>"></textarea>
 								</div>
 
-								<div class="input-box">
+								<div hidden class="input-box">
 									<span class="details">Estado</span>
 
-									<select class="caja-departamento" name="estadoP">
+									<select hidden class="caja-departamento" name="estadoP">
 										<option value="Realizado">Realizado</option>
 									</select>
 
