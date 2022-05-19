@@ -166,7 +166,7 @@ if (isset($_POST['agregar_send'])) {
           </div>
 
 		  <div class="input-box">
-            <span class="details">STMP</span>
+            <span class="details">SMTP</span>
             <input type="text" name="host" placeholder="Ingrese el host" value="<?php echo $correoData['host']; if (isset($_POST['host'])); ?>" />
           </div>
         
